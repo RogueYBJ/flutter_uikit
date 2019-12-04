@@ -56,7 +56,7 @@ class UIButton extends StatefulWidget {
     this.padding = const EdgeInsets.all(0),
     this.minSize = 0,
     this.borderRadius = const BorderRadius.all(Radius.circular(5.0)),
-    this.color = 0xFF28B434,
+    this.color = 0xFF28B434, String data,
   }) : super(key: key);
 
   _UIButton createState() => new _UIButton();

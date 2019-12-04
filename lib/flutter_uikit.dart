@@ -4,6 +4,7 @@ library flutter_uikit;
 export 'ui_button.dart';
 export 'ui_image.dart';
 export 'ui_text.dart';
+export 'ui_tableView.dart';
 
 /// A Calculator.
 class Calculator {

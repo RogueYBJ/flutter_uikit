@@ -73,51 +73,69 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Stack(
+        children: <Widget>[
+          UITableView(
+            // header: new Container(
+            //   child: UIText(data: 'header',),
+            // ),
+            // footer: new Container(
+            //   child: UIText(data: 'footer',),
+            // ),
+              item: (group,index) {
+                return new Container(child: new UIText(
+                  data: '$group:$index',
+                ));
+              },
+              itemsNumAction: (group) {
+                return group == 1 ? 0 : 0;
+              },
+              // group: 4,
+            ),
+        ],
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            UIButton(
-              onPressed: () {
-                print('object');
-              },
-              // padding: EdgeInsets.all(10),
-              buttonState: UIButtonState(
-                title: 'null',
-                // buttonType: UIbuttonType.left,
-                // imageWidth: 40,
-                // imgStr: //'s'
-                //     'https://upload.jianshu.io/users/upload_avatars/2189604/630b6a593585?imageMogr2/auto-orient/strip|imageView2/1/w/80/h/80/format/webp',
-              ),
-              
-            ),
-            UIText(data: '100',fontSize: 100,),
-            UIImage(imgStr: 'https://upload.jianshu.io/users/upload_avatars/2189604/630b6a593585?imageMogr2/auto-orient/strip|imageView2/1/w/80/h/80/format/webp',padding: EdgeInsets.all(10),),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
+        // Column(
+        //   // Column is also a layout widget. It takes a list of children and
+        //   // arranges them vertically. By default, it sizes itself to fit its
+        //   // children horizontally, and tries to be as tall as its parent.
+        //   //
+        //   // Invoke "debug painting" (press "p" in the console, choose the
+        //   // "Toggle Debug Paint" action from the Flutter Inspector in Android
+        //   // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+        //   // to see the wireframe for each widget.
+        //   //
+        //   // Column has various properties to control how it sizes itself and
+        //   // how it positions its children. Here we use mainAxisAlignment to
+        //   // center the children vertically; the main axis here is the vertical
+        //   // axis because Columns are vertical (the cross axis would be
+        //   // horizontal).
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: <Widget>[
+        //     UIButton(
+        //       onPressed: () {
+        //         print('object');
+        //       },
+        //       // padding: EdgeInsets.all(10),
+        //       buttonState: UIButtonState(
+        //         title: 'null',
+        //         buttonType: UIbuttonType.left,
+        //         imageWidth: 40,
+        //         imgStr: //'s'
+        //             'https://upload.jianshu.io/users/upload_avatars/2189604/630b6a593585?imageMogr2/auto-orient/strip|imageView2/1/w/80/h/80/format/webp',
+        //       ),
+        //     ),
+        //     UIText(
+        //       data: '100',
+        //       fontSize: 10,
+        //     ),
+        //     UIImage(
+        //       imgStr:
+        //           'https://upload.jianshu.io/users/upload_avatars/2189604/630b6a593585?imageMogr2/auto-orient/strip|imageView2/1/w/80/h/80/format/webp',
+        //       padding: EdgeInsets.all(10),
+        //     ),
+        //   ],
+        // ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
