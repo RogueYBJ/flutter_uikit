@@ -16,7 +16,7 @@ class ItemState {
   final double radius;
   final double lineHeight;
   final int lineColor;
-  
+
   ItemState({
     this.backgroundColor = 0xFFFFFFFF,
     this.top = 5,
@@ -41,6 +41,8 @@ class UITableView extends StatefulWidget {
   final Widget backView;
   final String backImgStr;
   final ItemState itemState;
+  final Widget groupHeader;
+  final Widget groupFooter;
   const UITableView({
     Key key,
     @required this.item,
@@ -56,6 +58,8 @@ class UITableView extends StatefulWidget {
     this.backImgStr,
     this.newData,
     this.itemState,
+    this.groupHeader,
+    this.groupFooter,
   }) : super(key: key);
   _UITableView createState() => new _UITableView();
 }
@@ -207,11 +211,13 @@ class _UITableView extends State<UITableView> {
       ),
       child: new Column(
         children: <Widget>[
+          index == 0 ? widget.groupHeader ?? new Container() : new Container(),
           widget.item(group, index),
           Divider(
             color: Color(widget.itemState?.lineColor ?? ItemState().lineColor),
             height: widget.itemState?.lineHeight ?? ItemState().lineHeight,
-          )
+          ),
+          index == _itemsList[group - 1] - 1 ? widget.groupFooter ?? new Container() : new Container(),
         ],
       ),
     );

@@ -80,6 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
             // upData: (){
             //   print('upData');
             // },
+            groupHeader: new Container(
+              child: UIText(data: 'groupHeader',),
+            ),
+            groupFooter: new Container(
+              child: UIText(data: 'groupFooter',),
+            ),
             header: new Container(
               child: UIText(data: 'header',),
             ),
