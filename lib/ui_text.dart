@@ -13,6 +13,7 @@ class UIText extends StatefulWidget {
   final int color;
   final FontWeight fontWeight;
   final EdgeInsetsGeometry padding;
+  final TextAlign textAlign;
   const UIText({
     Key key,
     @required this.data,
@@ -20,6 +21,7 @@ class UIText extends StatefulWidget {
     this.color = 0xFF333333,
     this.fontWeight = FontWeight.normal,
     this.padding = const EdgeInsets.all(0),
+    this.textAlign = TextAlign.center,
   }) : super(key: key);
   _UIText createState() => new _UIText();
 }
@@ -31,13 +33,14 @@ class _UIText extends State<UIText> {
     return new Padding(
       padding: widget.padding,
       child: new Text(
-      widget.data,
-      style: new TextStyle(
-        fontSize: widget.fontSize,
-        fontWeight: widget.fontWeight,
-        color: Color(widget.color),
+        widget.data,
+        textAlign: widget.textAlign,
+        style: new TextStyle(
+          fontSize: widget.fontSize,
+          fontWeight: widget.fontWeight,
+          color: Color(widget.color),
+        ),
       ),
-    ),
     );
   }
 }
