@@ -76,21 +76,25 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: <Widget>[
           UITableView(
-            // header: new Container(
-            //   child: UIText(data: 'header',),
-            // ),
-            // footer: new Container(
-            //   child: UIText(data: 'footer',),
-            // ),
+            // itemState: ItemState(),
+            // upData: (){
+            //   print('upData');
+            // },
+            header: new Container(
+              child: UIText(data: 'header',),
+            ),
+            footer: new Container(
+              child: UIText(data: 'footer',),
+            ),
               item: (group,index) {
                 return new Container(child: new UIText(
                   data: '$group:$index',
                 ));
               },
               itemsNumAction: (group) {
-                return group == 1 ? 0 : 0;
+                return group == 1 ? 3 : 2;
               },
-              // group: 4,
+              group: 4,
             ),
         ],
         // Center is a layout widget. It takes a single child and positions it

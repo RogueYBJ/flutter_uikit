@@ -9,6 +9,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_refresh/flutter_refresh.dart';
 import 'package:flutter_uikit/flutter_uikit.dart';
 
+class ItemState {
+  final int backgroundColor;
+  final double top;
+  final double bottom;
+  final double radius;
+  final double lineHeight;
+  final int lineColor;
+  
+  ItemState({
+    this.backgroundColor = 0xFFFFFFFF,
+    this.top = 5,
+    this.bottom = 5,
+    this.radius = 5,
+    this.lineHeight = 1,
+    this.lineColor = 0xFFE5E5E5,
+  });
+}
+
 class UITableView extends StatefulWidget {
   final int group;
   final Function itemsNumAction;
@@ -22,6 +40,7 @@ class UITableView extends StatefulWidget {
   final Function newData;
   final Widget backView;
   final String backImgStr;
+  final ItemState itemState;
   const UITableView({
     Key key,
     @required this.item,
@@ -36,6 +55,7 @@ class UITableView extends StatefulWidget {
     this.backView,
     this.backImgStr,
     this.newData,
+    this.itemState,
   }) : super(key: key);
   _UITableView createState() => new _UITableView();
 }
@@ -104,9 +124,9 @@ class _UITableView extends State<UITableView> {
             child: new Center(
               child: new UIButton(
                 onPressed: () {
-                  if (widget.newData!=null) {
+                  if (widget.newData != null) {
                     widget.newData();
-                  }else{
+                  } else {
                     if (widget.upData != null) {
                       widget.upData();
                     }
@@ -165,7 +185,36 @@ class _UITableView extends State<UITableView> {
   }
 
   Widget _itemView({int group, int index}) {
-    return widget.item(group, index);
+    return new Container(
+      margin: widget.group > 1
+          ? EdgeInsets.only(
+              top: index == 0 ? widget.itemState?.top ?? ItemState().top : 0,
+              bottom: index == _itemsList[group - 1] - 1
+                  ? widget.itemState?.top ?? ItemState().top
+                  : 0,
+            )
+          : null,
+      decoration: BoxDecoration(
+        color: Color(
+            widget.itemState?.backgroundColor ?? ItemState().backgroundColor),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(
+              index == 0 ? widget.itemState?.radius ?? ItemState().radius : 0),
+          bottom: Radius.circular(index == _itemsList[group - 1] - 1
+              ? widget.itemState?.radius ?? ItemState().radius
+              : 0),
+        ),
+      ),
+      child: new Column(
+        children: <Widget>[
+          widget.item(group, index),
+          Divider(
+            color: Color(widget.itemState?.lineColor ?? ItemState().lineColor),
+            height: widget.itemState?.lineHeight ?? ItemState().lineHeight,
+          )
+        ],
+      ),
+    );
   }
 
   int _group(int position) {
