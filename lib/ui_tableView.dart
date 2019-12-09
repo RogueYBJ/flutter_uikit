@@ -46,7 +46,7 @@ class UITableView extends StatefulWidget {
   const UITableView({
     Key key,
     @required this.item,
-    this.group = 1,
+    this.group = 0,
     @required this.itemsNumAction,
     this.upData,
     this.downData,
@@ -93,7 +93,7 @@ class _UITableView extends State<UITableView> {
   void _setItemsNum() {
     _itemsList = [];
     _items = 0;
-    for (var i = 1; i <= widget.group; i++) {
+    for (var i = 0; i < widget.group; i++) {
       int index = widget.itemsNumAction(i);
       _items += index;
       _itemsList.add(index);
@@ -190,10 +190,10 @@ class _UITableView extends State<UITableView> {
 
   Widget _itemView({int group, int index}) {
     return new Container(
-      margin: widget.group > 1
+      margin: widget.group > 0
           ? EdgeInsets.only(
               top: index == 0 ? widget.itemState?.top ?? ItemState().top : 0,
-              bottom: index == _itemsList[group - 1] - 1
+              bottom: index == _itemsList[group] - 1
                   ? widget.itemState?.top ?? ItemState().top
                   : 0,
             )
@@ -204,7 +204,7 @@ class _UITableView extends State<UITableView> {
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(
               index == 0 ? widget.itemState?.radius ?? ItemState().radius : 0),
-          bottom: Radius.circular(index == _itemsList[group - 1] - 1
+          bottom: Radius.circular(index == _itemsList[group] - 1
               ? widget.itemState?.radius ?? ItemState().radius
               : 0),
         ),
@@ -217,7 +217,7 @@ class _UITableView extends State<UITableView> {
             color: Color(widget.itemState?.lineColor ?? ItemState().lineColor),
             height: widget.itemState?.lineHeight ?? ItemState().lineHeight,
           ),
-          index == _itemsList[group - 1] - 1 ? widget.groupFooter(group) ?? new Container() : new Container(),
+          index == _itemsList[group] - 1 ? widget.groupFooter(group) ?? new Container() : new Container(),
         ],
       ),
     );
@@ -228,10 +228,10 @@ class _UITableView extends State<UITableView> {
     for (var i = 0; i <= _itemsList.length; i++) {
       items += _itemsList[i];
       if (items - 1 >= position) {
-        return i + 1;
+        return i;
       }
     }
-    return 1;
+    return 0;
   }
 
   int _index(int position) {

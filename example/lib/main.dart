@@ -80,32 +80,41 @@ class _MyHomePageState extends State<MyHomePage> {
             // upData: (){
             //   print('upData');
             // },
-            groupHeader: (group){
+            groupHeader: (group) {
               return new Container(
-              child: UIText(data: 'groupHeader$group',),
-            );
+                child: UIText(
+                  data: 'groupHeader$group',
+                ),
+              );
             },
-            groupFooter: (group){
+            groupFooter: (group) {
               return new Container(
-              child: UIText(data: 'groupFooter$group',),
-            );
+                child: UIText(
+                  data: 'groupFooter$group',
+                ),
+              );
             },
             header: new Container(
-              child: UIText(data: 'header',),
+              child: UIText(
+                data: 'header',
+              ),
             ),
             footer: new Container(
-              child: UIText(data: 'footer',),
+              child: UIText(
+                data: 'footer',
+              ),
             ),
-              item: (group,index) {
-                return new Container(child: new UIText(
-                  data: '$group:$index',
-                ));
-              },
-              itemsNumAction: (group) {
-                return group == 1 ? 3 : 2;
-              },
-              group: 4,
-            ),
+            item: (group, index) {
+              return new Container(
+                  child: new UIText(
+                data: '$group:$index',
+              ));
+            },
+            itemsNumAction: (group) {
+              return group == 1 ? 3 : 2;
+            },
+            group: 3,
+          ),
         ],
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
