@@ -23,7 +23,8 @@ class UIButtonState {
   final double spacing;
   final double imageWidth;
   final double imageHeight;
-final EdgeInsetsGeometry imgPadding;
+  final double imageRadius;
+  final EdgeInsetsGeometry imgPadding;
   UIButtonState({
     @required this.title,
     this.buttonType = UIbuttonType.normal,
@@ -35,6 +36,7 @@ final EdgeInsetsGeometry imgPadding;
     this.spacing = 5,
     this.imageWidth = 36,
     this.imageHeight,
+    this.imageRadius,
     this.imgPadding = const EdgeInsets.all(0),
   });
 }
@@ -45,18 +47,19 @@ class UIButton extends StatefulWidget {
   final Function onPressed;
   final EdgeInsetsGeometry padding;
   final double minSize;
-  final BorderRadius borderRadius;
+  final double radius;
   final int color; //设置按钮方法才能显示颜色，没有按钮方法么人为点击失效，点击失效按钮为primaryColor颜色
 
   const UIButton({
     Key key,
-    @required this.buttonState,
+    this.buttonState,
     this.child,
     @required this.onPressed,
     this.padding = const EdgeInsets.all(0),
     this.minSize = 0,
-    this.borderRadius = const BorderRadius.all(Radius.circular(5.0)),
-    this.color = 0xFF28B434, String data,
+    this.radius = 5,
+    this.color = 0xFF28B434,
+    String data,
   }) : super(key: key);
 
   _UIButton createState() => new _UIButton();
@@ -68,7 +71,7 @@ class _UIButton extends State<UIButton> {
     // TODO: implement build
     return CupertinoButton(
       color: Color(widget.color),
-      borderRadius: widget.borderRadius,
+      borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
       padding: widget.padding,
       minSize: widget.minSize,
       onPressed: widget.onPressed,
@@ -119,6 +122,7 @@ class _UIButton extends State<UIButton> {
       width: widget.buttonState.imageWidth,
       height: widget.buttonState.imageHeight,
       padding: widget.buttonState.imgPadding,
+      radius: widget.buttonState.imageRadius,
     );
   }
 

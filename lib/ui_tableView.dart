@@ -41,8 +41,8 @@ class UITableView extends StatefulWidget {
   final Widget backView;
   final String backImgStr;
   final ItemState itemState;
-  final Widget groupHeader;
-  final Widget groupFooter;
+  final Function groupHeader;
+  final Function groupFooter;
   const UITableView({
     Key key,
     @required this.item,
@@ -211,13 +211,13 @@ class _UITableView extends State<UITableView> {
       ),
       child: new Column(
         children: <Widget>[
-          index == 0 ? widget.groupHeader ?? new Container() : new Container(),
+          index == 0 ? widget.groupHeader(group) ?? new Container() : new Container(),
           widget.item(group, index),
           Divider(
             color: Color(widget.itemState?.lineColor ?? ItemState().lineColor),
             height: widget.itemState?.lineHeight ?? ItemState().lineHeight,
           ),
-          index == _itemsList[group - 1] - 1 ? widget.groupFooter ?? new Container() : new Container(),
+          index == _itemsList[group - 1] - 1 ? widget.groupFooter(group) ?? new Container() : new Container(),
         ],
       ),
     );

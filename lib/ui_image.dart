@@ -12,13 +12,17 @@ class UIImage extends StatefulWidget {
   final double width;
   final double height;
   final EdgeInsetsGeometry padding;
-  
+  final BoxFit fit;
+  final double radius;
+
   const UIImage({
     Key key,
     @required this.imgStr,
-    this.width = 20,
-    this.height = 20,
+    this.width,
+    this.height,
     this.padding = const EdgeInsets.all(0),
+    this.fit,
+    this.radius = 5,
   }) : super(key: key);
   _UIImage createState() => new _UIImage();
 }
@@ -27,14 +31,17 @@ class _UIImage extends State<UIImage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Padding(
-      padding: widget.padding,
-      child: widget.imgStr.length == 0
-          ? Icon(Icons.error)
-          : (widget.imgStr.length >= 4 &&
-                  widget.imgStr.substring(0, 4) == 'http')
-              ? _network()
-              : _asset(),
+    return new ClipRRect(
+      borderRadius: BorderRadius.circular(widget.radius),
+      child: new Padding(
+        padding: widget.padding,
+        child: widget.imgStr.length == 0
+            ? Icon(Icons.error)
+            : (widget.imgStr.length >= 4 &&
+                    widget.imgStr.substring(0, 4) == 'http')
+                ? _network()
+                : _asset(),
+      ),
     );
   }
 
@@ -61,9 +68,10 @@ class _UIImage extends State<UIImage> {
   Image _asset() {
     return Image.asset(
       widget.imgStr,
-      fit: _boxFit(),
-      width: _boxFit() == BoxFit.fitHeight ? null : widget.width,
-      height: _boxFit() == BoxFit.fitWidth ? null : widget.height,
+      fit: widget.fit ?? _boxFit(),
+      width: widget.width,
+      height: widget.height,
+      color: Colors.red,
       frameBuilder: (_, w, i, b) {
         return i == null ? Icon(Icons.error) : w;
       },
@@ -71,12 +79,10 @@ class _UIImage extends State<UIImage> {
   }
 
   BoxFit _boxFit() {
-    if (widget.height != 20 && widget.width != 20) {
+    if (widget.height != null && widget.width != null) {
       return BoxFit.fill;
-    } else if (widget.height > 20 && widget.width == 20) {
-      return BoxFit.fitHeight;
     } else {
-      return BoxFit.fitWidth;
+      return widget.height == null ? BoxFit.fitWidth : BoxFit.fitHeight;
     }
   }
 }

@@ -76,16 +76,20 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Stack(
         children: <Widget>[
           UITableView(
-            // itemState: ItemState(),
+            itemState: ItemState(),
             // upData: (){
             //   print('upData');
             // },
-            groupHeader: new Container(
-              child: UIText(data: 'groupHeader',),
-            ),
-            groupFooter: new Container(
-              child: UIText(data: 'groupFooter',),
-            ),
+            groupHeader: (group){
+              return new Container(
+              child: UIText(data: 'groupHeader$group',),
+            );
+            },
+            groupFooter: (group){
+              return new Container(
+              child: UIText(data: 'groupFooter$group',),
+            );
+            },
             header: new Container(
               child: UIText(data: 'header',),
             ),
