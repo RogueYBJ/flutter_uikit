@@ -80,20 +80,20 @@ class _MyHomePageState extends State<MyHomePage> {
             // upData: (){
             //   print('upData');
             // },
-            groupHeader: (group) {
-              return new Container(
-                child: UIText(
-                  data: 'groupHeader$group',
-                ),
-              );
-            },
-            groupFooter: (group) {
-              return new Container(
-                child: UIText(
-                  data: 'groupFooter$group',
-                ),
-              );
-            },
+            // groupHeader: (group) {
+            //   return new Container(
+            //     child: UIText(
+            //       data: 'groupHeader$group',
+            //     ),
+            //   );
+            // },
+            // groupFooter: (group) {
+            //   return new Container(
+            //     child: UIText(
+            //       data: 'groupFooter$group',
+            //     ),
+            //   );
+            // },
             header: new Container(
               child: UIText(
                 data: 'header',

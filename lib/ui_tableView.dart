@@ -211,13 +211,13 @@ class _UITableView extends State<UITableView> {
       ),
       child: new Column(
         children: <Widget>[
-          index == 0 ? widget.groupHeader(group) ?? new Container() : new Container(),
+          index == 0 && widget.groupHeader!=null ? widget.groupHeader(group) : new Container(),
           widget.item(group, index),
           Divider(
             color: Color(widget.itemState?.lineColor ?? ItemState().lineColor),
             height: widget.itemState?.lineHeight ?? ItemState().lineHeight,
           ),
-          index == _itemsList[group] - 1 ? widget.groupFooter(group) ?? new Container() : new Container(),
+          index == _itemsList[group] - 1  && widget.groupFooter!=null ? widget.groupFooter(group) : new Container(),
         ],
       ),
     );
