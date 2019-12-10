@@ -80,20 +80,41 @@ class _MyHomePageState extends State<MyHomePage> {
             // upData: (){
             //   print('upData');
             // },
-            // groupHeader: (group) {
-            //   return new Container(
-            //     child: UIText(
-            //       data: 'groupHeader$group',
-            //     ),
-            //   );
-            // },
-            // groupFooter: (group) {
-            //   return new Container(
-            //     child: UIText(
-            //       data: 'groupFooter$group',
-            //     ),
-            //   );
-            // },
+            groupHeader: (group) {
+              return new UIImage(
+                imgStr: 'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
+                // width: 40,
+                // height: 60,
+                // imgColor: null,
+                radius: 20,
+              );
+              // new Container(
+              //   child: UIText(
+              //     data: 'groupHeader$group',
+              //   ),
+              // );
+            },
+            groupFooter: (group) {
+              return new Container(
+                child: UIButton(
+                  buttonState: new UIButtonState(
+                    title: '111111',
+                    buttonType: UIbuttonType.top,
+                    imgStr: 'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
+                    imageWidth: 20,
+                    imageHeight: 30,
+                    // color: 0xFF000000
+                    imageRadius: 10
+                  ),
+                  onPressed: (){
+
+                  },
+                )
+                // UIText(
+                //   data: 'groupFooter$group',
+                // ),
+              );
+            },
             header: new Container(
               child: UIText(
                 data: 'header',

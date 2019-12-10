@@ -36,7 +36,7 @@ class UIButtonState {
     this.spacing = 5,
     this.imageWidth = 36,
     this.imageHeight,
-    this.imageRadius,
+    this.imageRadius = 0,
     this.imgPadding = const EdgeInsets.all(0),
   });
 }
