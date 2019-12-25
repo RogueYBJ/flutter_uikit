@@ -33,12 +33,12 @@ class _UIText extends State<UIText> {
     return new Padding(
       padding: widget.padding,
       child: new Text(
-        widget.data,
+        widget.data ?? '',
         textAlign: widget.textAlign,
         style: new TextStyle(
           fontSize: widget.fontSize,
           fontWeight: widget.fontWeight,
-          color: Color(widget.color),
+          color: Color(widget.color ?? 0xFF333333),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_uikit/flutter_uikit.dart';
@@ -75,14 +76,18 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Stack(
         children: <Widget>[
+          
           UITableView(
             itemState: ItemState(),
+
             // upData: (){
             //   print('upData');
             // },
+
             groupHeader: (group) {
               return new UIImage(
-                imgStr: 'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
+                imgStr:
+                    'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
                 // width: 40,
                 // height: 60,
                 // imgColor: null,
@@ -96,24 +101,25 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             groupFooter: (group) {
               return new Container(
-                child: UIButton(
-                  buttonState: new UIButtonState(
+                  child: UIButton(
+                buttonState: new UIButtonState(
                     title: '111111',
                     buttonType: UIbuttonType.top,
-                    imgStr: 'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
+                    imgStr:
+                        'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
                     imageWidth: 20,
                     imageHeight: 30,
                     // color: 0xFF000000
-                    imageRadius: 10
-                  ),
-                  onPressed: (){
-
-                  },
-                )
-                // UIText(
-                //   data: 'groupFooter$group',
-                // ),
-              );
+                    imageRadius: 10),
+                onPressed: () {
+                  showCupertinoDialog(
+                      context: context, builder: (_) => new UIDialog());
+                },
+              )
+                  // UIText(
+                  //   data: 'groupFooter$group',
+                  // ),
+                  );
             },
             header: new Container(
               child: UIText(
@@ -136,6 +142,20 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             group: 3,
           ),
+          new Container(
+            width: MediaQuery.of(context).size.width,
+            child: UIScrollView(
+            dataSource: ['1','2','3','1','2','3','1','2','3','1','2','3','1','2','3','1','2','3'],
+            item: (index,data){
+              return new Container(
+                width: 50,
+                child: new Center(
+                  child: new Text(data),
+                ),
+              );
+            },
+          ),
+          )
         ],
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.

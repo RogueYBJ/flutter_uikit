@@ -1,10 +1,11 @@
 library flutter_uikit;
 
-// import 'ui_button.dart';
 export 'ui_button.dart';
 export 'ui_image.dart';
 export 'ui_text.dart';
 export 'ui_tableView.dart';
+export 'ui_dialog.dart';
+export 'ui_scrollView.dart';
 
 /// A Calculator.
 class Calculator {
