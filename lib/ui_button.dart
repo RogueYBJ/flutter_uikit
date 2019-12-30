@@ -14,6 +14,7 @@ enum UIbuttonType { normal, left, right, top, bottom }
 
 class UIButtonState {
   final String title;
+  final Widget view;
   final UIbuttonType buttonType;
   final double fontSize;
   final int color;
@@ -25,8 +26,12 @@ class UIButtonState {
   final double imageHeight;
   final double imageRadius;
   final EdgeInsetsGeometry imgPadding;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
+  final MainAxisSize mainAxisSize;
   UIButtonState({
     @required this.title,
+    this.view, 
     this.buttonType = UIbuttonType.normal,
     this.fontSize = 16,
     this.color = 0xFFFFFFFF,
@@ -38,6 +43,9 @@ class UIButtonState {
     this.imageHeight,
     this.imageRadius = 0,
     this.imgPadding = const EdgeInsets.all(0),
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+    this.mainAxisSize, 
   });
 }
 
@@ -68,7 +76,6 @@ class UIButton extends StatefulWidget {
 class _UIButton extends State<UIButton> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return CupertinoButton(
       color: Color(widget.color),
       borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
@@ -85,10 +92,14 @@ class _UIButton extends State<UIButton> {
         : widget.buttonState.buttonType == UIbuttonType.top ||
                 widget.buttonState.buttonType == UIbuttonType.bottom
             ? new Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: widget.buttonState.mainAxisAlignment ??
+                    MainAxisAlignment.start,
+                crossAxisAlignment: widget.buttonState.crossAxisAlignment ??
+                    CrossAxisAlignment.center,
+                mainAxisSize: widget.buttonState.mainAxisSize ?? MainAxisSize.min,
                 children: <Widget>[
                   widget.buttonState.buttonType == UIbuttonType.top
-                      ? _buttonImage()
+                      ? widget.buttonState.view ?? _buttonImage()
                       : _buttonText(),
                   new Container(
                     height: widget.buttonState.spacing,
@@ -96,11 +107,15 @@ class _UIButton extends State<UIButton> {
                   ),
                   widget.buttonState.buttonType == UIbuttonType.top
                       ? _buttonText()
-                      : _buttonImage(),
+                      : widget.buttonState.view ?? _buttonImage(),
                 ],
               )
             : new Row(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: widget.buttonState.mainAxisAlignment ??
+                    MainAxisAlignment.start,
+                crossAxisAlignment: widget.buttonState.crossAxisAlignment ??
+                    CrossAxisAlignment.center,
+                mainAxisSize: widget.buttonState.mainAxisSize ?? MainAxisSize.min,
                 children: <Widget>[
                   widget.buttonState.buttonType == UIbuttonType.left
                       ? _buttonImage()

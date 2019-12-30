@@ -69,11 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+      // appBar: AppBar(
+      //   // Here we take the value from the MyHomePage object that was created by
+      //   // the App.build method, and use it to set our appbar title.
+      //   title: Text(widget.title),
+      // ),
       body: Stack(
         children: <Widget>[
           
@@ -83,7 +83,10 @@ class _MyHomePageState extends State<MyHomePage> {
             // upData: (){
             //   print('upData');
             // },
-
+            upData: (){
+              print('object');
+            },
+            downData: (){},
             groupHeader: (group) {
               return new UIImage(
                 imgStr:

@@ -43,6 +43,7 @@ class UITableView extends StatefulWidget {
   final ItemState itemState;
   final Function groupHeader;
   final Function groupFooter;
+  final Axis axis;
   const UITableView({
     Key key,
     @required this.item,
@@ -60,6 +61,7 @@ class UITableView extends StatefulWidget {
     this.itemState,
     this.groupHeader,
     this.groupFooter,
+    this.axis,
   }) : super(key: key);
   _UITableView createState() => new _UITableView();
 }
@@ -72,20 +74,23 @@ class _UITableView extends State<UITableView> {
   // 顶部刷新
   Future<Null> onHeaderRefresh() {
     return new Future.delayed(new Duration(seconds: 1), () {
-      widget.upData();
+      if (widget.upData != null) {
+        widget.upData();
+      }
     });
   }
 
   // 底部加载
   Future<Null> onFooterRefresh() async {
     return new Future.delayed(new Duration(seconds: 1), () {
-      widget.downData();
+      if (widget.downData != null) {
+        widget.downData();
+      }
     });
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _setItemsNum();
   }
@@ -102,23 +107,26 @@ class _UITableView extends State<UITableView> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return _getItemCount() == 0
-        ? _backView()
-        : (widget.upData != null || widget.downData != null)
-            ? new Refresh(
-                onHeaderRefresh: onHeaderRefresh,
-                onFooterRefresh: onFooterRefresh,
-                childBuilder: (BuildContext context,
-                    {ScrollController controller, ScrollPhysics physics}) {
-                  return new Container(
-                    margin: widget.margin,
-                    child:
-                        _getListView(controller: controller, physics: physics),
-                  );
-                },
-              )
-            : _getListView();
+    return MediaQuery.removePadding(
+      removeTop: true,
+      context: context,
+      child: _getItemCount() == 0
+          ? _backView()
+          : (widget.upData != null || widget.downData != null)
+              ? new Refresh(
+                  onHeaderRefresh: widget.upData!=null ? onHeaderRefresh : null,
+                  onFooterRefresh: widget.downData!=null ? onFooterRefresh : null,
+                  childBuilder: (BuildContext context,
+                      {ScrollController controller, ScrollPhysics physics}) {
+                    return new Container(
+                      margin: widget.margin,
+                      child: _getListView(
+                          controller: controller, physics: physics),
+                    );
+                  },
+                )
+              : _getListView(),
+    );
   }
 
   Widget _backView() {
@@ -147,6 +155,7 @@ class _UITableView extends State<UITableView> {
   }
 
   int _getItemCount() {
+    _setItemsNum();
     return _items +
         (widget.header == null ? 0 : 1) +
         (widget.footer == null ? 0 : 1);
@@ -154,6 +163,7 @@ class _UITableView extends State<UITableView> {
 
   Widget _getListView({ScrollController controller, ScrollPhysics physics}) {
     return new ListView.builder(
+        scrollDirection: widget.axis ?? Axis.vertical,
         padding: widget.padding,
         controller: controller,
         physics: physics,
@@ -211,13 +221,17 @@ class _UITableView extends State<UITableView> {
       ),
       child: new Column(
         children: <Widget>[
-          index == 0 && widget.groupHeader!=null ? widget.groupHeader(group) : new Container(),
+          index == 0 && widget.groupHeader != null
+              ? widget.groupHeader(group)
+              : new Container(),
           widget.item(group, index),
           Divider(
             color: Color(widget.itemState?.lineColor ?? ItemState().lineColor),
             height: widget.itemState?.lineHeight ?? ItemState().lineHeight,
           ),
-          index == _itemsList[group] - 1  && widget.groupFooter!=null ? widget.groupFooter(group) : new Container(),
+          index == _itemsList[group] - 1 && widget.groupFooter != null
+              ? widget.groupFooter(group)
+              : new Container(),
         ],
       ),
     );

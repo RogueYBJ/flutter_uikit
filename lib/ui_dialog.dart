@@ -68,7 +68,6 @@ class _UIDialog extends State<UIDialog> {
   DialogState dialogState;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if(widget.dialogState==null){
       dialogState = new DialogState();
@@ -78,7 +77,6 @@ class _UIDialog extends State<UIDialog> {
   }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new GestureDetector(
       onTap: () => dialogState?.backgroundAction ?? Navigator.pop(context),
       onDoubleTap: (){},

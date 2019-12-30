@@ -15,7 +15,7 @@ class UIImage extends StatefulWidget {
   final BoxFit fit;
   final double radius;
   final int imgColor;
-
+  final double progressRadius;
   const UIImage({
     Key key,
     @required this.imgStr,
@@ -25,6 +25,7 @@ class UIImage extends StatefulWidget {
     this.fit,
     this.radius = 5,
     this.imgColor,
+    this.progressRadius,
   }) : super(key: key);
   _UIImage createState() => new _UIImage();
 }
@@ -32,19 +33,18 @@ class UIImage extends StatefulWidget {
 class _UIImage extends State<UIImage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Container(
-        padding: widget.padding,
-        child: new ClipRRect(
-          borderRadius: BorderRadius.circular(widget.radius),
-          child: widget.imgStr.length == 0
+      padding: widget.padding,
+      child: new ClipRRect(
+        borderRadius: BorderRadius.circular(widget.radius),
+        child: widget.imgStr.length == 0
             ? Icon(Icons.error)
             : (widget.imgStr.length >= 4 &&
                     widget.imgStr.substring(0, 4) == 'http')
                 ? _network()
                 : _asset(),
-        ) ,
-      );
+      ),
+    );
   }
 
   Image _network() {
@@ -53,10 +53,16 @@ class _UIImage extends State<UIImage> {
       fit: widget.fit ?? _boxFit(),
       width: widget.width,
       height: widget.height,
-      color: widget.imgColor==null? widget.imgColor : Color(widget.imgColor),
+      color: widget.imgColor == null ? widget.imgColor : Color(widget.imgColor),
       frameBuilder: (_, w, i, b) {
         return i == null
-            ? CircularProgressIndicator(strokeWidth: 1,)
+            ? SizedBox(
+                width: widget.progressRadius ?? 10,
+                height: widget.progressRadius ?? 10,
+                child: CircularProgressIndicator(
+                  strokeWidth: 1,
+                ),
+              )
             : w;
       },
     );
@@ -68,7 +74,7 @@ class _UIImage extends State<UIImage> {
       fit: widget.fit ?? _boxFit(),
       width: widget.width,
       height: widget.height,
-      color: widget.imgColor==null? widget.imgColor : Color(widget.imgColor),
+      color: widget.imgColor == null ? widget.imgColor : Color(widget.imgColor),
       frameBuilder: (_, w, i, b) {
         return i == null ? Icon(Icons.error) : w;
       },
