@@ -21,9 +21,9 @@ class UIImage extends StatefulWidget {
     @required this.imgStr,
     this.width,
     this.height,
-    this.padding = const EdgeInsets.all(0),
+    this.padding,
     this.fit,
-    this.radius = 5,
+    this.radius,
     this.imgColor,
     this.progressRadius,
   }) : super(key: key);
@@ -34,13 +34,13 @@ class _UIImage extends State<UIImage> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      padding: widget.padding,
+      padding: widget.padding ?? EdgeInsets.all(0),
       child: new ClipRRect(
-        borderRadius: BorderRadius.circular(widget.radius),
-        child: widget.imgStr.length == 0
+        borderRadius: BorderRadius.circular(widget.radius ?? 5),
+        child: widget.imgStr?.length ?? 0 == 0
             ? Icon(Icons.error)
-            : (widget.imgStr.length >= 4 &&
-                    widget.imgStr.substring(0, 4) == 'http')
+            : (widget.imgStr?.length ??
+                    0 >= 4 && widget.imgStr.substring(0, 4) == 'http')
                 ? _network()
                 : _asset(),
       ),
@@ -49,18 +49,20 @@ class _UIImage extends State<UIImage> {
 
   Image _network() {
     return Image.network(
-      widget.imgStr,
-      fit: widget.fit ?? _boxFit(),
+      widget.imgStr ?? '',
+      fit: widget.fit ?? BoxFit.fill,
       width: widget.width,
       height: widget.height,
       color: widget.imgColor == null ? widget.imgColor : Color(widget.imgColor),
       frameBuilder: (_, w, i, b) {
         return i == null
-            ? SizedBox(
-                width: widget.progressRadius ?? 10,
-                height: widget.progressRadius ?? 10,
-                child: CircularProgressIndicator(
-                  strokeWidth: 1,
+            ? new Center(
+                child: SizedBox(
+                  width: widget.progressRadius ?? 10,
+                  height: widget.progressRadius ?? 10,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                  ),
                 ),
               )
             : w;
@@ -70,8 +72,8 @@ class _UIImage extends State<UIImage> {
 
   Image _asset() {
     return Image.asset(
-      widget.imgStr,
-      fit: widget.fit ?? _boxFit(),
+      widget.imgStr ?? '',
+      fit: widget.fit ?? BoxFit.fill,
       width: widget.width,
       height: widget.height,
       color: widget.imgColor == null ? widget.imgColor : Color(widget.imgColor),
@@ -79,13 +81,5 @@ class _UIImage extends State<UIImage> {
         return i == null ? Icon(Icons.error) : w;
       },
     );
-  }
-
-  BoxFit _boxFit() {
-    if (widget.height != null && widget.width != null) {
-      return BoxFit.fill;
-    } else {
-      return widget.height == null ? BoxFit.fitWidth : BoxFit.fitHeight;
-    }
   }
 }

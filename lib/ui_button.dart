@@ -25,12 +25,14 @@ class UIButtonState {
   final double imageWidth;
   final double imageHeight;
   final double imageRadius;
+  final BoxFit fit;
   final EdgeInsetsGeometry imgPadding;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
   UIButtonState({
     @required this.title,
+    this.fit, 
     this.view, 
     this.buttonType = UIbuttonType.normal,
     this.fontSize = 16,
@@ -52,6 +54,8 @@ class UIButtonState {
 class UIButton extends StatefulWidget {
   final UIButtonState buttonState;
   final Widget child;
+  final Widget buttonText;
+  final Widget buttonImage;
   final Function onPressed;
   final EdgeInsetsGeometry padding;
   final double minSize;
@@ -67,7 +71,7 @@ class UIButton extends StatefulWidget {
     this.minSize = 0,
     this.radius = 5,
     this.color = 0xFF28B434,
-    String data,
+    String data, this.buttonText, this.buttonImage,
   }) : super(key: key);
 
   _UIButton createState() => new _UIButton();
@@ -132,7 +136,8 @@ class _UIButton extends State<UIButton> {
   }
 
   Widget _buttonImage() {
-    return UIImage(
+    return widget.buttonImage ?? UIImage(
+      fit: widget.buttonState.fit,
       imgStr: widget.buttonState.imgStr,
       width: widget.buttonState.imageWidth,
       height: widget.buttonState.imageHeight,
@@ -142,7 +147,7 @@ class _UIButton extends State<UIButton> {
   }
 
   UIText _buttonText() {
-    return UIText(
+    return widget.buttonText ?? UIText(
       data: widget.buttonState.title,
       fontSize: widget.buttonState.fontSize,
       fontWeight: widget.buttonState.fontWeight,

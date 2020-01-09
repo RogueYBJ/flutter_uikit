@@ -8,16 +8,18 @@
 
 import 'package:flutter/material.dart';
 
-class UIRow extends StatefulWidget {
-  final List dataSource;
+class UIRow<T> extends StatefulWidget {
+  final List<T> dataSource;
 
-  final Function view;
+  final Widget Function(int tag,T data) view;
 
   final MainAxisAlignment mainAxisAlignment;
 
+  final CrossAxisAlignment crossAxisAlignment;
+
   final MainAxisSize mainAxisSize;
 
-  const UIRow({Key key, this.dataSource, this.view, this.mainAxisAlignment, this.mainAxisSize}) : super(key: key);
+  const UIRow({Key key, this.dataSource, this.view, this.mainAxisAlignment, this.mainAxisSize, this.crossAxisAlignment}) : super(key: key);
 
   _UIRow createState() => new _UIRow();
 }
@@ -27,6 +29,7 @@ class _UIRow extends State<UIRow> {
   Widget build(BuildContext context) {
     return new Row(
       mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.start,
+      crossAxisAlignment: widget.crossAxisAlignment ?? CrossAxisAlignment.start,
       mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
       children: _getListView(),
     );
@@ -34,7 +37,7 @@ class _UIRow extends State<UIRow> {
 
   List<Widget> _getListView() {
     List<Widget> list = [];
-    for (var i = 0; i < widget.dataSource.length; i++) {
+    for (var i = 0; i < widget.dataSource?.length ?? 0; i++) {
       if (widget.view != null) {
         list.add(widget.view(i, widget.dataSource[i]));
       } else {

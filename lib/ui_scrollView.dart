@@ -5,50 +5,116 @@
  * @Date 2019-12-25 11:10:42 Wednesday
  */
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-class UIScrollView extends StatefulWidget {
-  final List dataSource;
-  final Function item;
-  const UIScrollView({
+import 'flutter_uikit.dart';
+
+class UIPageView<T> extends StatefulWidget {
+  
+  final List<T> dataSource;
+
+  final EdgeInsetsGeometry padding;
+
+  final double height;
+
+  final Widget Function(int tag,T data) childAction;
+
+  final void Function(int tag, T data) onTap;
+
+  const UIPageView({
     Key key,
     this.dataSource,
-    this.item,
+    this.padding,
+    this.height,
+    this.childAction,
+    this.onTap,
   }) : super(key: key);
-  _UIScrollView createState() => new _UIScrollView();
+
+  _UIPageView createState() => new _UIPageView();
 }
 
-class _UIScrollView extends State<UIScrollView> {
-  List monthsOfTheYear = ['1', '2', '3', '4'];
+class _UIPageView extends State<UIPageView> {
+  PageController _pageController = new PageController();
+
+  int _pages = 0;
+
+  Timer _timer;
+
+  int _times = 0;
+
+  void _countdown() {
+    if (!mounted) {
+      return;
+    }
+    _timer = new Timer.periodic(new Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        return;
+      }
+      if (widget.dataSource == null || widget.dataSource.length == 0) {
+        return;
+      } else {
+        _times += 1;
+        if (_times == 3) {
+          _pages += 1;
+          _pageController.animateToPage(_pages,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn);
+        }
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController.addListener(() {
+      _times = 0;
+      _pages = _pageController.offset ~/ MediaQuery.of(context).size.width;
+      if (_pageController.offset / MediaQuery.of(context).size.width <= 0) {
+        _pageController.jumpToPage(widget.dataSource.length - 2);
+      } else if (_pageController.offset / MediaQuery.of(context).size.width ==
+          widget.dataSource.length - 1) {
+        _pageController.jumpToPage(1);
+      }
+      setState(() {});
+    });
+    _countdown();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer?.cancel();
+    _timer = null;
+    print('_timer');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Container();
+    return new Container(
+      height: widget.height ?? 170,
+      child: new PageView.builder(
+        controller: _pageController,
+        physics: PageScrollPhysics(parent: BouncingScrollPhysics()),
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.dataSource?.length ?? 0,
+        itemBuilder: (BuildContext context, int position) {
+          return widget.childAction!=null ? widget.childAction(position,widget.dataSource[position]):
+              new GestureDetector(
+                onTap: ()=> widget.onTap == null?(){}:widget.onTap(position,widget.dataSource[position]),
+                child: new Container(
+                padding: widget.padding ??
+                    EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                child: UIImage(
+                  imgStr: widget.dataSource[position],
+                  fit: BoxFit.fill,
+                ),
+              ),
+              );
+        },
+      ),
+    );
   }
-    // return PageView.builder(
-    //   itemBuilder: ,
-    // );
-  //   return new CustomScrollView(
-  //     cacheExtent: 20,
-  //     scrollDirection: Axis.horizontal,
-  //     controller: ScrollController(
-  //         initialScrollOffset: 100), //FixedExtentScrollController
-  //     reverse: false,
-  //     primary: false,
-  //     physics:
-  //         ClampingScrollPhysics(), //BouncingScrollPhysics ios , ClampingScrollPhysics android , FixedExtentScrollPhysics 其他
-  //     slivers: <Widget>[
-  //       SliverList(
-  //         delegate: SliverChildListDelegate(
-  //           //返回组件集合
-  //           List.generate(
-  //             widget.dataSource?.length ?? 0,
-  //             (int index) {
-  //               return widget.item(index, widget.dataSource[index]);
-  //             },
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 }

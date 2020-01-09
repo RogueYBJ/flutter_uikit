@@ -6,6 +6,8 @@ export 'ui_text.dart';
 export 'ui_tableView.dart';
 export 'ui_dialog.dart';
 export 'ui_scrollView.dart';
+export 'ui_row.dart';
+export 'ui_column.dart';
 
 /// A Calculator.
 class Calculator {

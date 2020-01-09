@@ -19,11 +19,13 @@ class UIText extends StatefulWidget {
   const UIText({
     Key key,
     @required this.data,
-    this.fontSize = 16,
+    this.fontSize,
     this.color = 0xFF333333,
-    this.fontWeight = FontWeight.normal,
-    this.padding = const EdgeInsets.all(0),
-    this.textAlign = TextAlign.center, this.maxLines, this.overflow,
+    this.fontWeight,
+    this.padding,
+    this.textAlign,
+    this.maxLines,
+    this.overflow,
   }) : super(key: key);
   _UIText createState() => new _UIText();
 }
@@ -31,17 +33,15 @@ class UIText extends StatefulWidget {
 class _UIText extends State<UIText> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Padding(
-      padding: widget.padding,
+      padding: widget.padding ?? EdgeInsets.all(0),
       child: new Text(
         widget.data ?? '',
-        textAlign: widget.textAlign,
+        textAlign: widget.textAlign ?? TextAlign.start,
         style: new TextStyle(
-          fontSize: widget.fontSize,
-          fontWeight: widget.fontWeight,
+          fontSize: widget.fontSize ?? 16,
+          fontWeight: widget.fontWeight ?? FontWeight.normal,
           color: Color(widget.color ?? 0xFF333333),
-          
         ),
         maxLines: widget.maxLines ?? 1,
         overflow: widget.overflow,
