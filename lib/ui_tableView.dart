@@ -29,8 +29,8 @@ class ItemState {
 
 class UITableView extends StatefulWidget {
   final int group;
-  final Function itemsNumAction;
-  final Function item;
+  final int Function(int group) itemsNumAction;
+  final Widget Function(int group, int index) item;
   final Widget header;
   final Widget footer;
   final EdgeInsetsGeometry margin;
@@ -98,7 +98,7 @@ class _UITableView extends State<UITableView> {
   void _setItemsNum() {
     _itemsList = [];
     _items = 0;
-    for (var i = 0; i < widget.group; i++) {
+    for (var i = 0; i < widget.group ?? 0; i++) {
       int index = widget.itemsNumAction(i);
       _items += index;
       _itemsList.add(index);

@@ -37,10 +37,10 @@ class _UIImage extends State<UIImage> {
       padding: widget.padding ?? EdgeInsets.all(0),
       child: new ClipRRect(
         borderRadius: BorderRadius.circular(widget.radius ?? 5),
-        child: widget.imgStr?.length ?? 0 == 0
+        child: (widget.imgStr?.length ?? 0) == 0
             ? Icon(Icons.error)
-            : (widget.imgStr?.length ??
-                    0 >= 4 && widget.imgStr.substring(0, 4) == 'http')
+            : ((widget.imgStr?.length ??
+                    0) >= 4 && widget.imgStr.substring(0, 4) == 'http')
                 ? _network()
                 : _asset(),
       ),
