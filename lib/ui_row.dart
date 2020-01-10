@@ -8,10 +8,10 @@
 
 import 'package:flutter/material.dart';
 
-class UIRow<T> extends StatefulWidget {
-  final List<T> dataSource;
+class UIRow extends StatefulWidget {
+  final List dataSource;
 
-  final Widget Function(int tag,T data) view;
+  final Function view;
 
   final MainAxisAlignment mainAxisAlignment;
 

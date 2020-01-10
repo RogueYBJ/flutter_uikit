@@ -9,11 +9,11 @@
 
 import 'package:flutter/material.dart';
 
-class UIColumn<T> extends StatefulWidget {
+class UIColumn extends StatefulWidget {
 
-  final List<T> dataSource;
+  final List dataSource;
 
-  final Widget Function(int tag,T data) view;
+  final Function view;
 
   final MainAxisAlignment mainAxisAlignment;
 
