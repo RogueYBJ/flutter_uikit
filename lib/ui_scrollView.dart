@@ -11,24 +11,23 @@ import 'package:flutter/material.dart';
 
 import 'flutter_uikit.dart';
 
-class UIPageView<T> extends StatefulWidget {
-  
-  final List<T> dataSource;
+class UIPageView extends StatefulWidget {
+  final List dataSource;
 
   final EdgeInsetsGeometry padding;
 
   final double height;
 
-  final Widget Function(int tag,T data) childAction;
+  final Function child;
 
-  final void Function(int tag, T data) onTap;
+  final Function onTap;
 
   const UIPageView({
     Key key,
     this.dataSource,
     this.padding,
     this.height,
-    this.childAction,
+    this.child,
     this.onTap,
   }) : super(key: key);
 
@@ -101,18 +100,21 @@ class _UIPageView extends State<UIPageView> {
         scrollDirection: Axis.horizontal,
         itemCount: widget.dataSource?.length ?? 0,
         itemBuilder: (BuildContext context, int position) {
-          return widget.childAction!=null ? widget.childAction(position,widget.dataSource[position]):
-              new GestureDetector(
-                onTap: ()=> widget.onTap == null?(){}:widget.onTap(position,widget.dataSource[position]),
-                child: new Container(
-                padding: widget.padding ??
-                    EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-                child: UIImage(
-                  imgStr: widget.dataSource[position],
-                  fit: BoxFit.fill,
-                ),
-              ),
-              );
+          return widget.child != null
+              ? widget.child(position, widget.dataSource[position])
+              : new GestureDetector(
+                  onTap: () => widget.onTap == null
+                      ? () {}
+                      : widget.onTap(position, widget.dataSource[position]),
+                  child: new Container(
+                    padding: widget.padding ??
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                    child: UIImage(
+                      imgStr: widget.dataSource[position],
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                );
         },
       ),
     );
