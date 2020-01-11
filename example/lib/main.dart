@@ -83,10 +83,10 @@ class _MyHomePageState extends State<MyHomePage> {
             // upData: (){
             //   print('upData');
             // },
-            upData: (){
-              print('object');
-            },
-            downData: (){},
+            // upData: (){
+            //   print('object');
+            // },
+            // downData: (){},
             groupHeader: (group) {
               return new UIImage(
                 imgStr:

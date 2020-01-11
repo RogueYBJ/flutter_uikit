@@ -44,6 +44,8 @@ class UITableView extends StatefulWidget {
   final Function groupHeader;
   final Function groupFooter;
   final Axis axis;
+  final ScrollController controller;
+  final Widget child;
   const UITableView({
     Key key,
     @required this.item,
@@ -61,7 +63,7 @@ class UITableView extends StatefulWidget {
     this.itemState,
     this.groupHeader,
     this.groupFooter,
-    this.axis,
+    this.axis, this.controller, this.child,
   }) : super(key: key);
   _UITableView createState() => new _UITableView();
 }
@@ -114,18 +116,19 @@ class _UITableView extends State<UITableView> {
           ? _backView()
           : (widget.upData != null || widget.downData != null)
               ? new Refresh(
+                scrollController: widget.controller,
                   onHeaderRefresh: widget.upData!=null ? onHeaderRefresh : null,
                   onFooterRefresh: widget.downData!=null ? onFooterRefresh : null,
                   childBuilder: (BuildContext context,
                       {ScrollController controller, ScrollPhysics physics}) {
                     return new Container(
                       margin: widget.margin,
-                      child: _getListView(
+                      child: widget.child ??  _getListView(
                           controller: controller, physics: physics),
                     );
                   },
                 )
-              : _getListView(),
+              : widget.child ?? _getListView(controller: widget.controller),
     );
   }
 
