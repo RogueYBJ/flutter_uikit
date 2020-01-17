@@ -9,9 +9,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'flutter_uikit.dart';
-
-class UIPageView extends StatefulWidget {
+class UIScrollView extends StatefulWidget {
   final List dataSource;
 
   final EdgeInsetsGeometry padding;
@@ -22,7 +20,7 @@ class UIPageView extends StatefulWidget {
 
   final Function onTap;
 
-  const UIPageView({
+  const UIScrollView({
     Key key,
     this.dataSource,
     this.padding,
@@ -31,10 +29,10 @@ class UIPageView extends StatefulWidget {
     this.onTap,
   }) : super(key: key);
 
-  _UIPageView createState() => new _UIPageView();
+  _UIScrollView createState() => new _UIScrollView();
 }
 
-class _UIPageView extends State<UIPageView> {
+class _UIScrollView extends State<UIScrollView> {
   PageController _pageController = new PageController();
 
   int _pages = 0;
@@ -100,21 +98,7 @@ class _UIPageView extends State<UIPageView> {
         scrollDirection: Axis.horizontal,
         itemCount: widget.dataSource?.length ?? 0,
         itemBuilder: (BuildContext context, int position) {
-          return widget.child != null
-              ? widget.child(position, widget.dataSource[position])
-              : new GestureDetector(
-                  onTap: () => widget.onTap == null
-                      ? () {}
-                      : widget.onTap(position, widget.dataSource[position]),
-                  child: new Container(
-                    padding: widget.padding ??
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-                    child: UIImage(
-                      imgStr: widget.dataSource[position],
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                );
+          return widget.child(position, widget.dataSource[position]);
         },
       ),
     );
