@@ -45,6 +45,7 @@ class UITableView extends StatefulWidget {
   final Function groupFooter;
   final Axis axis;
   final ScrollController controller;
+  final ScrollPhysics physics;
   final Widget child;
   const UITableView({
     Key key,
@@ -63,7 +64,10 @@ class UITableView extends StatefulWidget {
     this.itemState,
     this.groupHeader,
     this.groupFooter,
-    this.axis, this.controller, this.child,
+    this.axis,
+    this.controller,
+    this.child,
+    this.physics,
   }) : super(key: key);
   _UITableView createState() => new _UITableView();
 }
@@ -116,19 +120,25 @@ class _UITableView extends State<UITableView> {
           ? _backView()
           : (widget.upData != null || widget.downData != null)
               ? new Refresh(
-                scrollController: widget.controller,
-                  onHeaderRefresh: widget.upData!=null ? onHeaderRefresh : null,
-                  onFooterRefresh: widget.downData!=null ? onFooterRefresh : null,
+                  physics: widget.physics,
+                  scrollController: widget.controller,
+                  onHeaderRefresh:
+                      widget.upData != null ? onHeaderRefresh : null,
+                  onFooterRefresh:
+                      widget.downData != null ? onFooterRefresh : null,
                   childBuilder: (BuildContext context,
                       {ScrollController controller, ScrollPhysics physics}) {
                     return new Container(
                       margin: widget.margin,
-                      child: widget.child ??  _getListView(
-                          controller: controller, physics: physics),
+                      child: widget.child ??
+                          _getListView(
+                              controller: controller, physics: physics),
                     );
                   },
                 )
-              : widget.child ?? _getListView(controller: widget.controller),
+              : widget.child ??
+                  _getListView(
+                      controller: widget.controller, physics: widget.physics),
     );
   }
 
