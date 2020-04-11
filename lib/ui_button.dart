@@ -146,7 +146,7 @@ class _UIButton extends State<UIButton> {
     );
   }
 
-  UIText _buttonText() {
+  Widget _buttonText() {
     return widget.buttonText ?? UIText(
       data: widget.buttonState.title,
       fontSize: widget.buttonState.fontSize,
