@@ -7,6 +7,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_uikit/flutter_uikit.dart';
 
 class UIImage extends StatefulWidget {
   final String imgStr;
@@ -36,31 +37,26 @@ class UIImage extends StatefulWidget {
 class _UIImage extends State<UIImage> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){},
-      onDoubleTap: (){},
-
-      child: new Container(
-        padding: widget.padding ?? EdgeInsets.all(0),
-        width: widget.width,
-        height: widget.height,
-        child: new ClipRRect(
-          borderRadius: BorderRadius.circular(widget.radius ?? 5),
-          child: (widget.imgStr?.length ?? 0) == 0
-              ? new Center(
-            child: SizedBox(
-              width: widget.progressRadius ?? 10,
-              height: widget.progressRadius ?? 10,
-              child: CircularProgressIndicator(
-                strokeWidth: 1,
-              ),
+    return new Container(
+      padding: widget.padding ?? EdgeInsets.all(0),
+      width: widget.width,
+      height: widget.height,
+      child: new ClipRRect(
+        borderRadius: BorderRadius.circular(widget.radius ?? 5),
+        child: (widget.imgStr?.length ?? 0) == 0
+            ? new Center(
+          child: SizedBox(
+            width: widget.progressRadius ?? 10,
+            height: widget.progressRadius ?? 10,
+            child: CircularProgressIndicator(
+              strokeWidth: 1,
             ),
-          )
-              : ((widget.imgStr?.length ?? 0) >= 4 &&
-              widget.imgStr.substring(0, 4) == 'http')
-              ? _network()
-              : _asset(),
-        ),
+          ),
+        )
+            : ((widget.imgStr?.length ?? 0) >= 4 &&
+            widget.imgStr.substring(0, 4) == 'http')
+            ? _network()
+            : _asset(),
       ),
     );
   }
@@ -73,8 +69,7 @@ class _UIImage extends State<UIImage> {
           image: DecorationImage(
               image: imageProvider,
               fit: BoxFit.cover,
-              colorFilter:
-              ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+              colorFilter: UIKit.colorFilter ?? ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
         ),
       ),
       placeholder: (context, url) => new Center(
