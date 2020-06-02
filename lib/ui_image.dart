@@ -39,8 +39,6 @@ class _UIImage extends State<UIImage> {
   Widget build(BuildContext context) {
     return new Container(
       padding: widget.padding ?? EdgeInsets.all(0),
-      width: widget.width,
-      height: widget.height,
       child: new ClipRRect(
         borderRadius: BorderRadius.circular(widget.radius ?? 5),
         child: (widget.imgStr?.length ?? 0) == 0
