@@ -5,6 +5,7 @@
  * @Date 2019-12-03 22:42:23 Tuesday
  */
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class UIImage extends StatefulWidget {
@@ -16,6 +17,7 @@ class UIImage extends StatefulWidget {
   final double radius;
   final int imgColor;
   final double progressRadius;
+
   const UIImage({
     Key key,
     @required this.imgStr,
@@ -27,28 +29,69 @@ class UIImage extends StatefulWidget {
     this.imgColor,
     this.progressRadius,
   }) : super(key: key);
+
   _UIImage createState() => new _UIImage();
 }
 
 class _UIImage extends State<UIImage> {
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      padding: widget.padding ?? EdgeInsets.all(0),
-      child: new ClipRRect(
-        borderRadius: BorderRadius.circular(widget.radius ?? 5),
-        child: (widget.imgStr?.length ?? 0) == 0
-            ? Icon(Icons.error)
-            : ((widget.imgStr?.length ??
-                    0) >= 4 && widget.imgStr.substring(0, 4) == 'http')
-                ? _network()
-                : _asset(),
+    return GestureDetector(
+      onTap: (){},
+      onDoubleTap: (){},
+
+      child: new Container(
+        padding: widget.padding ?? EdgeInsets.all(0),
+        width: widget.width,
+        height: widget.height,
+        child: new ClipRRect(
+          borderRadius: BorderRadius.circular(widget.radius ?? 5),
+          child: (widget.imgStr?.length ?? 0) == 0
+              ? new Center(
+            child: SizedBox(
+              width: widget.progressRadius ?? 10,
+              height: widget.progressRadius ?? 10,
+              child: CircularProgressIndicator(
+                strokeWidth: 1,
+              ),
+            ),
+          )
+              : ((widget.imgStr?.length ?? 0) >= 4 &&
+              widget.imgStr.substring(0, 4) == 'http')
+              ? _network()
+              : _asset(),
+        ),
       ),
     );
   }
 
-  Image _network() {
-    return Image.network(
+  CachedNetworkImage _network() {
+    return CachedNetworkImage(
+      imageUrl: widget.imgStr ?? '',
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+              colorFilter:
+              ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+        ),
+      ),
+      placeholder: (context, url) => new Center(
+        child: SizedBox(
+          width: widget.progressRadius ?? 10,
+          height: widget.progressRadius ?? 10,
+          child: CircularProgressIndicator(
+            strokeWidth: 1,
+          ),
+        ),
+      ),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+    );
+  }
+
+  Image _asset() {
+    return Image.asset(
       widget.imgStr ?? '',
       fit: widget.fit ?? BoxFit.fill,
       width: widget.width,
@@ -66,19 +109,6 @@ class _UIImage extends State<UIImage> {
                 ),
               )
             : w;
-      },
-    );
-  }
-
-  Image _asset() {
-    return Image.asset(
-      widget.imgStr ?? '',
-      fit: widget.fit ?? BoxFit.fill,
-      width: widget.width,
-      height: widget.height,
-      color: widget.imgColor == null ? widget.imgColor : Color(widget.imgColor),
-      frameBuilder: (_, w, i, b) {
-        return i == null ? Icon(Icons.error) : w;
       },
     );
   }
