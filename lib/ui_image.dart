@@ -65,10 +65,12 @@ class _UIImage extends State<UIImage> {
     return CachedNetworkImage(
       imageUrl: widget.imgStr ?? '',
       imageBuilder: (context, imageProvider) => Container(
+        width: widget.width,
+        height: widget.height,
         decoration: BoxDecoration(
           image: DecorationImage(
               image: imageProvider,
-              fit: BoxFit.cover,
+              fit: widget.fit ?? BoxFit.fill,
               colorFilter: UIKit.colorFilter ?? ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
         ),
       ),
