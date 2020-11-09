@@ -1,5 +1,5 @@
 /*
- * @Author Bangjin Yu
+ * @Author BangJin Yu
  * @Email: 1227169416@qq.com
  * @Address: 梦想小镇互联网村
  * @Date 2019-12-03 22:42:23 Tuesday
@@ -9,7 +9,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_uikit/flutter_uikit.dart';
 
-class UIImage extends StatefulWidget {
+class UIImage extends StatelessWidget {
   final String imgStr;
   final double width;
   final double height;
@@ -31,28 +31,25 @@ class UIImage extends StatefulWidget {
     this.progressRadius,
   }) : super(key: key);
 
-  _UIImage createState() => new _UIImage();
-}
 
-class _UIImage extends State<UIImage> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      padding: widget.padding ?? EdgeInsets.all(0),
+      padding: this.padding ?? EdgeInsets.all(0),
       child: new ClipRRect(
-        borderRadius: BorderRadius.circular(widget.radius ?? 5),
-        child: (widget.imgStr?.length ?? 0) == 0
+        borderRadius: BorderRadius.circular(this.radius ?? 5),
+        child: (this.imgStr?.length ?? 0) == 0
             ? new Center(
           child: SizedBox(
-            width: widget.progressRadius ?? 10,
-            height: widget.progressRadius ?? 10,
+            width: this.progressRadius ?? 10,
+            height: this.progressRadius ?? 10,
             child: CircularProgressIndicator(
               strokeWidth: 1,
             ),
           ),
         )
-            : ((widget.imgStr?.length ?? 0) >= 4 &&
-            widget.imgStr.substring(0, 4) == 'http')
+            : ((this.imgStr?.length ?? 0) >= 4 &&
+            this.imgStr.substring(0, 4) == 'http')
             ? _network()
             : _asset(),
       ),
@@ -61,21 +58,21 @@ class _UIImage extends State<UIImage> {
 
   CachedNetworkImage _network() {
     return CachedNetworkImage(
-      imageUrl: widget.imgStr ?? '',
+      imageUrl: this.imgStr ?? '',
       imageBuilder: (context, imageProvider) => Container(
-        width: widget.width,
-        height: widget.height,
+        width: this.width,
+        height: this.height,
         decoration: BoxDecoration(
           image: DecorationImage(
               image: imageProvider,
-              fit: widget.fit ?? BoxFit.fill,
+              fit: this.fit ?? BoxFit.fill,
               colorFilter: UIKit.colorFilter ?? ColorFilter.mode(Colors.white, BlendMode.colorBurn)),
         ),
       ),
       placeholder: (context, url) => new Center(
         child: SizedBox(
-          width: widget.progressRadius ?? 10,
-          height: widget.progressRadius ?? 10,
+          width: this.progressRadius ?? 10,
+          height: this.progressRadius ?? 10,
           child: CircularProgressIndicator(
             strokeWidth: 1,
           ),
@@ -87,17 +84,17 @@ class _UIImage extends State<UIImage> {
 
   Image _asset() {
     return Image.asset(
-      widget.imgStr ?? '',
-      fit: widget.fit ?? BoxFit.fill,
-      width: widget.width,
-      height: widget.height,
-      color: widget.imgColor == null ? widget.imgColor : Color(widget.imgColor),
+      this.imgStr ?? '',
+      fit: this.fit ?? BoxFit.fill,
+      width: this.width,
+      height: this.height,
+      color: this.imgColor == null ? this.imgColor : Color(this.imgColor),
       frameBuilder: (_, w, i, b) {
         return i == null
             ? new Center(
                 child: SizedBox(
-                  width: widget.progressRadius ?? 10,
-                  height: widget.progressRadius ?? 10,
+                  width: this.progressRadius ?? 10,
+                  height: this.progressRadius ?? 10,
                   child: CircularProgressIndicator(
                     strokeWidth: 1,
                   ),

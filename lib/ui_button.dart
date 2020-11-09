@@ -1,5 +1,5 @@
 /*
- * @Author Bangjin Yu
+ * @Author BangJin Yu
  * @Email: 1227169416@qq.com
  * @Address: 梦想小镇互联网村
  * @Date 2019-12-03 18:53:45 Tuesday
@@ -10,12 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_uikit/ui_image.dart';
 import 'package:flutter_uikit/ui_text.dart';
 
-enum UIbuttonType { normal, left, right, top, bottom }
+enum UIButtonType { normal, left, right, top, bottom }
 
 class UIButtonState {
   final String title;
   final Widget view;
-  final UIbuttonType buttonType;
+  final UIButtonType buttonType;
   final double fontSize;
   final int color;
   final FontWeight fontWeight;
@@ -34,7 +34,7 @@ class UIButtonState {
     @required this.title,
     this.fit, 
     this.view, 
-    this.buttonType = UIbuttonType.normal,
+    this.buttonType = UIButtonType.normal,
     this.fontSize = 16,
     this.color = 0xFFFFFFFF,
     this.fontWeight,
@@ -51,7 +51,7 @@ class UIButtonState {
   });
 }
 
-class UIButton extends StatefulWidget {
+class UIButton extends StatelessWidget {
   final UIButtonState buttonState;
   final Widget child;
   final Widget buttonText;
@@ -74,61 +74,58 @@ class UIButton extends StatefulWidget {
     String data, this.buttonText, this.buttonImage,
   }) : super(key: key);
 
-  _UIButton createState() => new _UIButton();
-}
 
-class _UIButton extends State<UIButton> {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      color: Color(widget.color),
-      borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
-      padding: widget.padding,
-      minSize: widget.minSize,
-      onPressed: widget.onPressed,
-      child: widget.child ?? _buttonStateChild(),
+      color: Color(this.color),
+      borderRadius: BorderRadius.all(Radius.circular(this.radius)),
+      padding: this.padding,
+      minSize: this.minSize,
+      onPressed: this.onPressed,
+      child: this.child ?? _buttonStateChild(),
     );
   }
 
   Widget _buttonStateChild() {
-    return widget.buttonState.buttonType == UIbuttonType.normal
+    return this.buttonState.buttonType == UIButtonType.normal
         ? _buttonText()
-        : widget.buttonState.buttonType == UIbuttonType.top ||
-                widget.buttonState.buttonType == UIbuttonType.bottom
+        : this.buttonState.buttonType == UIButtonType.top ||
+        this.buttonState.buttonType == UIButtonType.bottom
             ? new Column(
-                mainAxisAlignment: widget.buttonState.mainAxisAlignment ??
+                mainAxisAlignment: this.buttonState.mainAxisAlignment ??
                     MainAxisAlignment.start,
-                crossAxisAlignment: widget.buttonState.crossAxisAlignment ??
+                crossAxisAlignment: this.buttonState.crossAxisAlignment ??
                     CrossAxisAlignment.center,
-                mainAxisSize: widget.buttonState.mainAxisSize ?? MainAxisSize.min,
+                mainAxisSize: this.buttonState.mainAxisSize ?? MainAxisSize.min,
                 children: <Widget>[
-                  widget.buttonState.buttonType == UIbuttonType.top
-                      ? widget.buttonState.view ?? _buttonImage()
+                  this.buttonState.buttonType == UIButtonType.top
+                      ? this.buttonState.view ?? _buttonImage()
                       : _buttonText(),
                   new Container(
-                    height: widget.buttonState.spacing,
+                    height: this.buttonState.spacing,
                     width: 0.0,
                   ),
-                  widget.buttonState.buttonType == UIbuttonType.top
+                  this.buttonState.buttonType == UIButtonType.top
                       ? _buttonText()
-                      : widget.buttonState.view ?? _buttonImage(),
+                      : this.buttonState.view ?? _buttonImage(),
                 ],
               )
             : new Row(
-                mainAxisAlignment: widget.buttonState.mainAxisAlignment ??
+                mainAxisAlignment: this.buttonState.mainAxisAlignment ??
                     MainAxisAlignment.start,
-                crossAxisAlignment: widget.buttonState.crossAxisAlignment ??
+                crossAxisAlignment: this.buttonState.crossAxisAlignment ??
                     CrossAxisAlignment.center,
-                mainAxisSize: widget.buttonState.mainAxisSize ?? MainAxisSize.min,
+                mainAxisSize: this.buttonState.mainAxisSize ?? MainAxisSize.min,
                 children: <Widget>[
-                  widget.buttonState.buttonType == UIbuttonType.left
+                  this.buttonState.buttonType == UIButtonType.left
                       ? _buttonImage()
                       : _buttonText(),
                   new Container(
-                    width: widget.buttonState.spacing,
+                    width: this.buttonState.spacing,
                     height: 0.0,
                   ),
-                  widget.buttonState.buttonType == UIbuttonType.left
+                  this.buttonState.buttonType == UIButtonType.left
                       ? _buttonText()
                       : _buttonImage(),
                 ],
@@ -136,23 +133,23 @@ class _UIButton extends State<UIButton> {
   }
 
   Widget _buttonImage() {
-    return widget.buttonImage ?? UIImage(
-      fit: widget.buttonState.fit,
-      imgStr: widget.buttonState.imgStr,
-      width: widget.buttonState.imageWidth,
-      height: widget.buttonState.imageHeight,
-      padding: widget.buttonState.imgPadding,
-      radius: widget.buttonState.imageRadius,
+    return this.buttonImage ?? UIImage(
+      fit: this.buttonState.fit,
+      imgStr: this.buttonState.imgStr,
+      width: this.buttonState.imageWidth,
+      height: this.buttonState.imageHeight,
+      padding: this.buttonState.imgPadding,
+      radius: this.buttonState.imageRadius,
     );
   }
 
   Widget _buttonText() {
-    return widget.buttonText ?? UIText(
-      data: widget.buttonState.title,
-      fontSize: widget.buttonState.fontSize,
-      fontWeight: widget.buttonState.fontWeight,
-      color: widget.buttonState.color,
-      padding: widget.buttonState.padding,
+    return this.buttonText ?? UIText(
+      data: this.buttonState.title,
+      fontSize: this.buttonState.fontSize,
+      fontWeight: this.buttonState.fontWeight,
+      color: this.buttonState.color,
+      padding: this.buttonState.padding,
     );
   }
 }

@@ -1,5 +1,5 @@
 /*
- * @Author Bangjin Yu
+ * @Author BangJin Yu
  * @Email: 1227169416@qq.com
  * @Address: 梦想小镇互联网村
  * @Date 2019-12-25 20:47:52 Wednesday
@@ -9,7 +9,7 @@
 
 import 'package:flutter/material.dart';
 
-class UIColumn extends StatefulWidget {
+class UIColumn extends StatelessWidget {
 
   final List dataSource;
 
@@ -23,25 +23,22 @@ class UIColumn extends StatefulWidget {
 
   const UIColumn({Key key, this.dataSource, this.view, this.mainAxisAlignment, this.mainAxisSize, this.crossAxisAlignment}) : super(key: key);
 
-  _UIColumn createState() => new _UIColumn();
-}
 
-class _UIColumn extends State<UIColumn> {
   @override
   Widget build(BuildContext context) {
     return new Column(
-      mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.start,
-      crossAxisAlignment: widget.crossAxisAlignment ?? CrossAxisAlignment.start,
-      mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
+      mainAxisAlignment: this.mainAxisAlignment ?? MainAxisAlignment.start,
+      crossAxisAlignment: this.crossAxisAlignment ?? CrossAxisAlignment.start,
+      mainAxisSize: this.mainAxisSize ?? MainAxisSize.max,
       children: _getListView(),
     );
   }
 
   List<Widget> _getListView() {
     List<Widget> list = [];
-    for (var i = 0; i < widget?.dataSource?.length ?? []; i++) {
-      if (widget.view != null) {
-        list.add(widget.view(i, widget.dataSource[i]));
+    for (var i = 0; i < this?.dataSource?.length ?? []; i++) {
+      if (this.view != null) {
+        list.add(this.view(i, this.dataSource[i]));
       } else {
         list.add(new Container());
       }

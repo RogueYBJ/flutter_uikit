@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: UIButton(
                 buttonState: new UIButtonState(
                     title: '111111',
-                    buttonType: UIbuttonType.top,
+                    buttonType: UIButtonType.top,
                     imgStr:
                         'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
                     imageWidth: 20,

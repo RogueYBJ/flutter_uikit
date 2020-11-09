@@ -1,5 +1,5 @@
 /*
- * @Author Bangjin Yu
+ * @Author BangJin Yu
  * @Email: 1227169416@qq.com
  * @Address: 梦想小镇互联网村
  * @Date 2019-12-03 23:27:50 Tuesday
@@ -7,7 +7,8 @@
 
 import 'package:flutter/widgets.dart';
 
-class UIText extends StatefulWidget {
+class UIText extends StatelessWidget {
+
   final String data;
   final double fontSize;
   final int color;
@@ -27,24 +28,21 @@ class UIText extends StatefulWidget {
     this.maxLines,
     this.overflow,
   }) : super(key: key);
-  _UIText createState() => new _UIText();
-}
 
-class _UIText extends State<UIText> {
   @override
   Widget build(BuildContext context) {
     return new Padding(
-      padding: widget.padding ?? EdgeInsets.all(0),
+      padding: this.padding ?? EdgeInsets.all(0),
       child: new Text(
-        widget.data ?? '',
-        textAlign: widget.textAlign ?? TextAlign.start,
+        this.data ?? '',
+        textAlign: this.textAlign ?? TextAlign.start,
         style: new TextStyle(
-          fontSize: widget.fontSize ?? 16,
-          fontWeight: widget.fontWeight ?? FontWeight.normal,
-          color: Color(widget.color ?? 0xFF333333),
+          fontSize: this.fontSize ?? 16,
+          fontWeight: this.fontWeight ?? FontWeight.normal,
+          color: Color(this.color ?? 0xFF333333),
         ),
-        maxLines: widget.maxLines ?? 1,
-        overflow: widget.overflow,
+        maxLines: this.maxLines ?? 1,
+        overflow: this.overflow,
       ),
     );
   }
