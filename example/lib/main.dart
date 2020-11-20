@@ -94,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 // width: 40,
                 // height: 60,
                 // imgColor: null,
+                width: 100,
+                height: 100,
                 radius: 20,
               );
               // new Container(
@@ -105,13 +107,15 @@ class _MyHomePageState extends State<MyHomePage> {
             groupFooter: (group) {
               return new Container(
                   child: UIButton(
+                    width: 300,
+                height: 300,
                 buttonState: new UIButtonState(
                     title: '111111',
                     buttonType: UIButtonType.top,
                     imgStr:
                         'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
-                    imageWidth: 20,
-                    imageHeight: 30,
+                    imageWidth: 100,
+                    imageHeight: 100,
                     // color: 0xFF000000
                     imageRadius: 10),
                 onPressed: () {
@@ -126,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             header: new Container(
               child: UIText(
-                data: 'header',
+                data: 'headerheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheader',
               ),
             ),
             footer: new Container(

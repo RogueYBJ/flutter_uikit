@@ -13,7 +13,7 @@ class UIImage extends StatelessWidget {
   final String imgStr;
   final double width;
   final double height;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry margin;
   final BoxFit fit;
   final double radius;
   final int imgColor;
@@ -24,7 +24,7 @@ class UIImage extends StatelessWidget {
     @required this.imgStr,
     this.width,
     this.height,
-    this.padding,
+    this.margin,
     this.fit,
     this.radius,
     this.imgColor,
@@ -35,7 +35,10 @@ class UIImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      padding: this.padding ?? EdgeInsets.all(0),
+      margin: this.margin ?? EdgeInsets.all(0),
+      width: this.width,
+      height: this.height,
+      alignment: Alignment.center,
       child: new ClipRRect(
         borderRadius: BorderRadius.circular(this.radius ?? 5),
         child: (this.imgStr?.length ?? 0) == 0

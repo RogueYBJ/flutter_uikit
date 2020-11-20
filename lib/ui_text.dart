@@ -41,7 +41,7 @@ class UIText extends StatelessWidget {
           fontWeight: this.fontWeight ?? FontWeight.normal,
           color: Color(this.color ?? 0xFF333333),
         ),
-        maxLines: this.maxLines ?? 1,
+        maxLines: this.maxLines,
         overflow: this.overflow,
       ),
     );

@@ -26,7 +26,7 @@ class UIButtonState {
   final double imageHeight;
   final double imageRadius;
   final BoxFit fit;
-  final EdgeInsetsGeometry imgPadding;
+  final EdgeInsetsGeometry imgMargin;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
@@ -44,7 +44,7 @@ class UIButtonState {
     this.imageWidth = 36,
     this.imageHeight,
     this.imageRadius = 0,
-    this.imgPadding = const EdgeInsets.all(0),
+    this.imgMargin = const EdgeInsets.all(0),
     this.mainAxisAlignment,
     this.crossAxisAlignment,
     this.mainAxisSize, 
@@ -54,10 +54,13 @@ class UIButtonState {
 class UIButton extends StatelessWidget {
   final UIButtonState buttonState;
   final Widget child;
+  final double width;
+  final double height;
   final Widget buttonText;
   final Widget buttonImage;
   final Function onPressed;
   final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry margin;
   final double minSize;
   final double radius;
   final int color; //设置按钮方法才能显示颜色，没有按钮方法么人为点击失效，点击失效按钮为primaryColor颜色
@@ -68,22 +71,28 @@ class UIButton extends StatelessWidget {
     this.child,
     @required this.onPressed,
     this.padding = const EdgeInsets.all(0),
+    this.margin = const EdgeInsets.all(0),
     this.minSize = 0,
     this.radius = 5,
-    this.color = 0xFF28B434,
-    String data, this.buttonText, this.buttonImage,
+    this.color = 0xFFFFFFFF,
+    String data, this.buttonText, this.buttonImage, this.width, this.height,
   }) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton(
-      color: Color(this.color),
-      borderRadius: BorderRadius.all(Radius.circular(this.radius)),
-      padding: this.padding,
-      minSize: this.minSize,
-      onPressed: this.onPressed,
-      child: this.child ?? _buttonStateChild(),
+    return Container(
+      margin: this.margin,
+      width: this.width,
+      height: this.height,
+      child: CupertinoButton(
+        color: Color(this.color),
+        borderRadius: BorderRadius.all(Radius.circular(this.radius)),
+        padding: this.padding,
+        minSize: this.minSize,
+        onPressed: this.onPressed,
+        child: this.child ?? _buttonStateChild(),
+      ),
     );
   }
 
@@ -138,7 +147,7 @@ class UIButton extends StatelessWidget {
       imgStr: this.buttonState.imgStr,
       width: this.buttonState.imageWidth,
       height: this.buttonState.imageHeight,
-      padding: this.buttonState.imgPadding,
+      margin: this.buttonState.imgMargin,
       radius: this.buttonState.imageRadius,
     );
   }
