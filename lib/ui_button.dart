@@ -61,10 +61,11 @@ class UIButton extends StatelessWidget {
   final Function onPressed;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry boxPadding;
   final double minSize;
   final double radius;
   final int color; //设置按钮方法才能显示颜色，没有按钮方法么人为点击失效，点击失效按钮为primaryColor颜色
-
+  final Decoration decoration;
   const UIButton({
     Key key,
     this.buttonState,
@@ -72,10 +73,11 @@ class UIButton extends StatelessWidget {
     @required this.onPressed,
     this.padding = const EdgeInsets.all(0),
     this.margin = const EdgeInsets.all(0),
+    this.boxPadding = const EdgeInsets.all(0),
     this.minSize = 0,
     this.radius = 5,
     this.color = 0xFFFFFFFF,
-    String data, this.buttonText, this.buttonImage, this.width, this.height,
+    String data, this.buttonText, this.buttonImage, this.width, this.height, this.decoration,
   }) : super(key: key);
 
 
@@ -83,8 +85,10 @@ class UIButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: this.margin,
+      padding: this.boxPadding,
       width: this.width,
       height: this.height,
+      decoration: this.decoration ?? BoxDecoration(),
       child: CupertinoButton(
         color: Color(this.color),
         borderRadius: BorderRadius.all(Radius.circular(this.radius)),

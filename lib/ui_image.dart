@@ -14,10 +14,12 @@ class UIImage extends StatelessWidget {
   final double width;
   final double height;
   final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry padding;
   final BoxFit fit;
   final double radius;
   final int imgColor;
   final double progressRadius;
+  final Decoration decoration;
 
   const UIImage({
     Key key,
@@ -28,7 +30,7 @@ class UIImage extends StatelessWidget {
     this.fit,
     this.radius,
     this.imgColor,
-    this.progressRadius,
+    this.progressRadius, this.decoration, this.padding,
   }) : super(key: key);
 
 
@@ -36,9 +38,11 @@ class UIImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       margin: this.margin ?? EdgeInsets.all(0),
+      padding: this.padding ?? EdgeInsets.all(0),
       width: this.width,
       height: this.height,
       alignment: Alignment.center,
+      decoration: this.decoration ?? BoxDecoration(),
       child: new ClipRRect(
         borderRadius: BorderRadius.circular(this.radius ?? 5),
         child: (this.imgStr?.length ?? 0) == 0
