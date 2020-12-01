@@ -17,6 +17,7 @@ class UIText extends StatelessWidget {
   final TextAlign textAlign;
   final int maxLines;
   final TextOverflow overflow;
+  final Paint paint;
   const UIText({
     Key key,
     @required this.data,
@@ -26,7 +27,7 @@ class UIText extends StatelessWidget {
     this.padding,
     this.textAlign,
     this.maxLines,
-    this.overflow,
+    this.overflow, this.paint,
   }) : super(key: key);
 
   @override
@@ -39,7 +40,8 @@ class UIText extends StatelessWidget {
         style: new TextStyle(
           fontSize: this.fontSize ?? 16,
           fontWeight: this.fontWeight ?? FontWeight.normal,
-          color: Color(this.color ?? 0xFF333333),
+          color: this.paint == null ? Color(this.color ?? 0xFF333333) : null,
+          foreground: this.paint,
         ),
         maxLines: this.maxLines,
         overflow: this.overflow,
