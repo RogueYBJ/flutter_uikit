@@ -10,6 +10,10 @@ export 'ui_dialog.dart';
 export 'ui_scrollView.dart';
 export 'ui_row.dart';
 export 'ui_column.dart';
+export 'ui_slide.dart';
+export 'ui_overlay.dart';
+export 'ui_custom_table_view.dart';
+export 'ui_scroll_page.dart';
 
 /// A Calculator.
 class Calculator {
