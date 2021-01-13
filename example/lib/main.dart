@@ -50,6 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
+    OverlayCreate.context = context;
+    // UIOverlay.prompt("111");
+    // UIOverlay.show("加载中");
+    UIOverlay.toast("This call to setState tells the Flutter framework that something hasThis call to setState tells the Flutter framework that something hasThis call to setState tells the Flutter framework that something hasThis call to setState tells the Flutter framework that something has");
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below

@@ -14,8 +14,8 @@ enum UISlideType { NORMAL, LEFT, TOP, BOTTOM, RIGHT } // 默认为右侧
 
 class UISlide extends StatefulWidget {
   final UISlideType type; // 上下左右侧滑
-  final Widget child; // 子组件
   final double sp; // 侧滑距离 默认值为 1
+  final Widget Function(Function down) child; // 子组件
   const UISlide({Key key, this.child, this.type, this.sp = 1})
       : super(key: key);
 
@@ -34,27 +34,37 @@ class _UISlide extends State<UISlide> {
 
   bool _isSlide = false;
 
+  void _down(){
+    setState(() {
+      _moveOffset = Offset(0, 0);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Transform.translate(
-      offset: _moveOffset,
-      child: GestureDetector(
-        onPanStart: (detail) {
-          _startOffset = detail.localPosition;
-        },
-        onPanUpdate: (detail) {
-          _moveOffset = detail.localPosition - _startOffset;
-          _setMoveOffset();
-          setState(() {});
-        },
-        onPanEnd: (detail) {
-          _setEndOffset();
-          setState(() {
-          });
-        },
-        child: widget.child,
-      ),
+    return Stack(
+      alignment: Alignment.centerRight,
+      children: [
+        Transform.translate(
+          offset: _moveOffset,
+          child: GestureDetector(
+            onPanStart: (detail) {
+              _startOffset = detail.localPosition;
+            },
+            onPanUpdate: (detail) {
+              _moveOffset = detail.localPosition - _startOffset;
+              _setMoveOffset();
+              setState(() {});
+            },
+            onPanEnd: (detail) {
+              _setEndOffset();
+              setState(() {
+              });
+            },
+            child: widget.child== null ? null : widget.child(_down),
+          ),
+        )
+      ],
     );
   }
 
@@ -87,6 +97,8 @@ class _UISlide extends State<UISlide> {
   }
 
   void _setEndOffset(){
+    print(widget.type);
+    print(_isSlide);
     if(widget.type==UISlideType.TOP || widget.type == UISlideType.BOTTOM){
       if(widget.type==UISlideType.TOP){
         if(_isSlide && (_moveOffset.dy - (widget.sp??0.0)) < 0){

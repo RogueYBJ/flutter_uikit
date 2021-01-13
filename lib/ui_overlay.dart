@@ -16,6 +16,7 @@ enum OverlayStatus {
   successful,
   prompt,
   error,
+  toast,
 }
 
 /// 创建 ui_overlay
@@ -41,7 +42,7 @@ class UIOverlay {
       _count += 1;
       _msg = msg;
       _overlayStatus = dioStatus;
-      OverlayView.addOverlayEntry(_loadingView(_getCenterStatus(_overlayStatus),));
+      OverlayView.addOverlayEntry(_loadingView());
     }
   }
 
@@ -50,6 +51,12 @@ class UIOverlay {
     if (_count <= 0) {
       OverlayView?.clean();
     }
+  }
+
+  /// toast
+  static void toast(String msg, {int seconds = 2000}) {
+    show(msg, dioStatus: OverlayStatus.toast);
+    new Future.delayed(Duration(milliseconds: seconds), () => dismiss());
   }
 
   ///提示语
@@ -70,31 +77,32 @@ class UIOverlay {
     new Future.delayed(const Duration(milliseconds: 2000), () => dismiss());
   }
 
-  static Widget _loadingView(Widget widget) => Scaffold(
-    backgroundColor: Color(0x40000000),
-    body: new Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        new Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(10)),
-              child: new Column(
-                children: <Widget>[
-                  new Padding(
-                    padding: EdgeInsets.only(top: 5),
-                    child: new Text(_msg),
-                  )
-                ],
-              ),
-            )
-          ],
-        )
-      ],
+  static Widget _loadingView() => Scaffold(
+    backgroundColor: Color(OverlayStatus.toast == _overlayStatus ? 0xFF : 0x40000000),
+    body: Center(
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Container(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+                color: Color(OverlayStatus.toast == _overlayStatus ? 0xEE0000000 :  0xFFFFFFFF),
+                borderRadius: BorderRadius.circular(10)),
+            child: new Column(
+              children: <Widget>[
+                _getCenterStatus(_overlayStatus),
+                new Padding(
+                  padding: EdgeInsets.only(top: 5),
+                  child: new Text(_msg,style: TextStyle(
+                    color: Color(OverlayStatus.toast == _overlayStatus ? 0xFFFFFFFF :  0xFF000000),
+                  ),),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     ),
   );
 
@@ -104,6 +112,9 @@ class UIOverlay {
       strokeWidth: 1,
     );
     switch (status) {
+      case OverlayStatus.toast:
+        view = new Container();
+        break;
       case OverlayStatus.successful:
         view = new Container(
           width: 50,
