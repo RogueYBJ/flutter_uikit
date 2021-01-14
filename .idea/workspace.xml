@@ -20,15 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2cb4be6c-81ad-44fa-b021-28af44f4ccbf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_uikit.iml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_uikit.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui_overlay.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui_overlay.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui_slide.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui_slide.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,22 +115,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="353" key="GridCell.Tab.0.bottom" timestamp="1610544081597">
+    <state width="1398" height="353" key="GridCell.Tab.0.bottom" timestamp="1610588430846">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="353" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1610544081597" />
-    <state width="1398" height="353" key="GridCell.Tab.0.center" timestamp="1610544081596">
+    <state width="1398" height="353" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1610588430846" />
+    <state width="1398" height="353" key="GridCell.Tab.0.center" timestamp="1610588430845">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="353" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1610544081596" />
-    <state width="1398" height="353" key="GridCell.Tab.0.left" timestamp="1610544081596">
+    <state width="1398" height="353" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1610588430845" />
+    <state width="1398" height="353" key="GridCell.Tab.0.left" timestamp="1610588430844">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="353" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1610544081596" />
-    <state width="1398" height="353" key="GridCell.Tab.0.right" timestamp="1610544081597">
+    <state width="1398" height="353" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1610588430844" />
+    <state width="1398" height="353" key="GridCell.Tab.0.right" timestamp="1610588430845">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="353" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1610544081597" />
+    <state width="1398" height="353" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1610588430845" />
     <state x="221" y="97" key="SettingsEditor" timestamp="1610542923866">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
