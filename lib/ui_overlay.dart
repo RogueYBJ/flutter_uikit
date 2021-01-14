@@ -89,7 +89,7 @@ class UIOverlay {
             decoration: BoxDecoration(
                 color: Color(OverlayStatus.toast == _overlayStatus ? 0xEE0000000 :  0xFFFFFFFF),
                 borderRadius: BorderRadius.circular(10)),
-            child: OverlayStatus.toast == _overlayStatus ? Text(_msg,style: TextStyle(
+            child: OverlayStatus.toast == _overlayStatus ? Text(_msg,textAlign: TextAlign.center,style: TextStyle(
               color: Color(OverlayStatus.toast == _overlayStatus ? 0xFFFFFFFF :  0xFF000000),
             ),) : new Column(
               children: <Widget>[
