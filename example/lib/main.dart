@@ -79,139 +79,103 @@ class _MyHomePageState extends State<MyHomePage> {
       //   // the App.build method, and use it to set our appbar title.
       //   title: Text(widget.title),
       // ),
-      body: Stack(
-        children: <Widget>[
-          
-          UITableView(
-            itemState: ItemState(),
-
-            // upData: (){
-            //   print('upData');
-            // },
-            // upData: (){
-            //   print('object');
-            // },
-            // downData: (){},
-            groupHeader: (group) {
-              return new UIImage(
-                imgStr:
-                    'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
-                // width: 40,
-                // height: 60,
-                // imgColor: null,
-                width: 100,
-                height: 100,
-                radius: 20,
-              );
-              // new Container(
-              //   child: UIText(
-              //     data: 'groupHeader$group',
-              //   ),
-              // );
-            },
-            groupFooter: (group) {
-              return new Container(
-                  child: UIButton(
-                    width: 300,
-                height: 300,
-                buttonState: new UIButtonState(
-                    title: '111111',
-                    buttonType: UIButtonType.top,
-                    imgStr:
-                        'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
-                    imageWidth: 100,
-                    imageHeight: 100,
-                    // color: 0xFF000000
-                    imageRadius: 10),
-                onPressed: () {
-                  showCupertinoDialog(
-                      context: context, builder: (_) => new UIDialog());
-                },
-              )
-                  // UIText(
-                  //   data: 'groupFooter$group',
-                  // ),
-                  );
-            },
-            header: new Container(
-              child: UIText(
-                data: 'headerheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheader',
-              ),
-            ),
-            footer: new Container(
-              child: UIText(
-                data: 'footer',
-              ),
-            ),
-            item: (group, index) {
-              return new Container(
-                  child: new UIText(
-                data: '$group:$index',
-              ));
-            },
-            itemsNumAction: (group) {
-              return group == 1 ? 3 : 2;
-            },
-            group: 3,
-          ),
-          // new Container(
-          //   width: MediaQuery.of(context).size.width,
-          //   child: UIScrollView(
-          //   dataSource: ['1','2','3','1','2','3','1','2','3','1','2','3','1','2','3','1','2','3'],
-          //   item: (index,data){
-          //     return new Container(
-          //       width: 50,
-          //       child: new Center(
-          //         child: new Text(data),
-          //       ),
-          //     );
-          //   },
-          // ),
-          // )
-        ],
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        // Column(
-        //   // Column is also a layout widget. It takes a list of children and
-        //   // arranges them vertically. By default, it sizes itself to fit its
-        //   // children horizontally, and tries to be as tall as its parent.
-        //   //
-        //   // Invoke "debug painting" (press "p" in the console, choose the
-        //   // "Toggle Debug Paint" action from the Flutter Inspector in Android
-        //   // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-        //   // to see the wireframe for each widget.
-        //   //
-        //   // Column has various properties to control how it sizes itself and
-        //   // how it positions its children. Here we use mainAxisAlignment to
-        //   // center the children vertically; the main axis here is the vertical
-        //   // axis because Columns are vertical (the cross axis would be
-        //   // horizontal).
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: <Widget>[
-        //     UIButton(
-        //       onPressed: () {
-        //         print('object');
-        //       },
-        //       // padding: EdgeInsets.all(10),
-        //       buttonState: UIButtonState(
-        //         title: 'null',
-        //         buttonType: UIbuttonType.left,
-        //         imageWidth: 40,
-        //         imgStr: //'s'
-        //             'https://upload.jianshu.io/users/upload_avatars/2189604/630b6a593585?imageMogr2/auto-orient/strip|imageView2/1/w/80/h/80/format/webp',
-        //       ),
-        //     ),
-        //     UIText(
-        //       data: '100',
-        //       fontSize: 10,
-        //     ),
-        //     UIImage(
-        //       imgStr:
-        //           'https://upload.jianshu.io/users/upload_avatars/2189604/630b6a593585?imageMogr2/auto-orient/strip|imageView2/1/w/80/h/80/format/webp',
-        //       padding: EdgeInsets.all(10),
-        //     ),
-        //   ],
-        // ),
+      // body: Stack(
+      //   children: <Widget>[
+      //
+      //     // UITableView(
+      //     //   itemState: ItemState(),
+      //     //
+      //     //   // upData: (){
+      //     //   //   print('upData');
+      //     //   // },
+      //     //   // upData: (){
+      //     //   //   print('object');
+      //     //   // },
+      //     //   // downData: (){},
+      //     //   groupHeader: (group) {
+      //     //     return new UIImage(
+      //     //       imgStr:
+      //     //           'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
+      //     //       // width: 40,
+      //     //       // height: 60,
+      //     //       // imgColor: null,
+      //     //       width: 100,
+      //     //       height: 100,
+      //     //       radius: 20,
+      //     //     );
+      //     //     // new Container(
+      //     //     //   child: UIText(
+      //     //     //     data: 'groupHeader$group',
+      //     //     //   ),
+      //     //     // );
+      //     //   },
+      //     //   groupFooter: (group) {
+      //     //     return new Container(
+      //     //         child: UIButton(
+      //     //           width: 300,
+      //     //       height: 300,
+      //     //       buttonState: new UIButtonState(
+      //     //           title: '111111',
+      //     //           buttonType: UIButtonType.top,
+      //     //           imgStr:
+      //     //               'https://upload.jianshu.io/users/upload_avatars/2287048/39010652-41eb-42a0-8a8d-a2f7c1c011b7.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp',
+      //     //           imageWidth: 100,
+      //     //           imageHeight: 100,
+      //     //           // color: 0xFF000000
+      //     //           imageRadius: 10),
+      //     //       onPressed: () {
+      //     //         showCupertinoDialog(
+      //     //             context: context, builder: (_) => new UIDialog());
+      //     //       },
+      //     //     )
+      //     //         // UIText(
+      //     //         //   data: 'groupFooter$group',
+      //     //         // ),
+      //     //         );
+      //     //   },
+      //     //   header: new Container(
+      //     //     child: UIText(
+      //     //       data: 'headerheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheaderheader',
+      //     //     ),
+      //     //   ),
+      //     //   footer: new Container(
+      //     //     child: UIText(
+      //     //       data: 'footer',
+      //     //     ),
+      //     //   ),
+      //     //   item: (group, index) {
+      //     //     return new Container(
+      //     //         child: new UIText(
+      //     //       data: '$group:$index',
+      //     //     ));
+      //     //   },
+      //     //   itemsNumAction: (group) {
+      //     //     return group == 1 ? 3 : 2;
+      //     //   },
+      //     //   group: 3,
+      //     // ),
+      //     // UICustomTableView(
+      //     //   color: Color(0xFFEEEFF3),
+      //     //   upData: (){},
+      //     //   downData: (){},
+      //     //   group: 1,
+      //     //   length: (int group)=> 10,
+      //     //   item: (int group,int index){
+      //     //     return Container(height: 50,color: Color(0xFFFF00FF),margin: EdgeInsets.symmetric(vertical: 10),);
+      //     //   },
+      //     // ),
+      //   ],
+      // ),
+      appBar: AppBar(),
+      body: UICustomTableView(
+        color: Color(0xFFEEEFF3),
+        upData: (){},
+        downData: (){},
+        group: 1,
+        length: (int group)=> 10,
+        item: (int group,int index){
+          return Container(height: 50,color: Color(0xFFFF00FF),margin: EdgeInsets.symmetric(vertical: 10),);
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,

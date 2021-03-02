@@ -13,12 +13,13 @@ import 'package:flutter_uikit/flutter_uikit.dart';
 import 'package:flutter_refresh/flutter_refresh.dart';
 
 
-class UICustomTableView extends StatelessWidget {
+class UICustomTableView extends StatefulWidget {
   final int group; // 组
   final int Function(int group) length; // 每组的长度
   final Widget Function(int group, int index) item; // itemView
   final Widget headerView; // 头部
   final Widget footerView; // 尾部
+  final SliverChildDelegate Function(int group) delegate; // 协议
   final Widget Function(int group) itemList; // 每组的列表
   final Widget Function(int group) groupHeader; // 每组的头部
   final Widget Function(int group) groupFooter; // 每组的尾部
@@ -52,18 +53,23 @@ class UICustomTableView extends StatelessWidget {
     this.group = 1,
     this.length,
     this.item,
+    this.delegate,
     this.persistentHeader,
     this.appBar,
     this.sliverFill,
     this.color, this.removeTop, this.decoration, this.upData, this.downData,
   }) : super(key: key);
 
+ @override
+ _UICustomTableView createState() => _UICustomTableView();
+}
 
+class _UICustomTableView extends State<UICustomTableView> {
   // 顶部刷新
   Future<Null> onHeaderRefresh() {
     return new Future.delayed(new Duration(seconds: 1), () {
-      if (this.upData != null) {
-        this.upData();
+      if (widget.upData != null) {
+        widget.upData();
       }
     });
   }
@@ -71,8 +77,8 @@ class UICustomTableView extends StatelessWidget {
   // 底部加载
   Future<Null> onFooterRefresh() async {
     return new Future.delayed(new Duration(seconds: 1), () {
-      if (this.downData != null) {
-        this.downData();
+      if (widget.downData != null) {
+        widget.downData();
       }
     });
   }
@@ -80,22 +86,22 @@ class UICustomTableView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MediaQuery.removePadding(
-        removeTop: this.removeTop ?? true,
+        removeTop: widget.removeTop ?? true,
         context: context,
         child: new Refresh(
-          physics: this.physics,
-          scrollController: this.controller,
-          onHeaderRefresh: this.upData != null ? onHeaderRefresh : null,
-          onFooterRefresh: this.downData != null ? onFooterRefresh : null,
+          physics: widget.physics,
+          scrollController: widget.controller,
+          onHeaderRefresh: widget.upData != null ? onHeaderRefresh : null,
+          onFooterRefresh: widget.downData != null ? onFooterRefresh : null,
           childBuilder: (BuildContext context,
               {ScrollController controller, ScrollPhysics physics}) {
-            return  Container(
-              margin: this.margin,
-              padding: this.padding,
-              decoration: this.decoration ?? BoxDecoration(
-                color: this.color,
+            return new Container(
+              margin: widget.margin,
+              padding: widget.padding,
+              decoration: widget.decoration ?? BoxDecoration(
+                color: widget.color,
               ),
-              child: _getListView(controller: this.controller, physics: this.physics),
+              child: _getListView(controller: controller, physics: physics),
             );
           },
         ));
@@ -113,66 +119,66 @@ class UICustomTableView extends StatelessWidget {
     // 创建空列表 slivers
     List<Widget> slivers = [];
 
-    if (this.appBar != null) {
-      slivers.add(this.appBar);
+    if (widget.appBar != null) {
+      slivers.add(widget.appBar);
     }
 
     // 添加 列表头部 headerView
-    if (this.headerView != null) {
+    if (widget.headerView != null) {
       slivers.add(SliverToBoxAdapter(
-        child: this.headerView,
+        child: widget.headerView,
       ));
     }
 
     // 添加 列表头部 headerView
-    if (this.persistentHeader != null) {
-      slivers.add(this.persistentHeader);
+    if (widget.persistentHeader != null) {
+      slivers.add(widget.persistentHeader);
     }
 
     // 遍历 每组的数据 group
-    for (int i = 0; i < (this.group ?? 0); i++) {
+    for (int i = 0; i < (widget.group ?? 0); i++) {
       // 添加 每组的头部 groupHeader
-      if (this.groupHeader != null) {
+      if (widget.groupHeader != null) {
         slivers.add(SliverToBoxAdapter(
-          child: this.groupHeader(i),
+          child: widget.groupHeader(i),
         ));
       }
 
       // 添加 每组的SliverList SliverList
-      if(this.itemList!=null){
-        slivers.add( this.itemList(i) ?? SliverList(
-          delegate: SliverChildBuilderDelegate(
+      if(widget.itemList!=null){
+        slivers.add( widget.itemList(i) ?? SliverList(
+          delegate: widget.delegate != null ? widget.delegate(i) :  SliverChildBuilderDelegate(
                 (BuildContext context, int position) {
-              return this.item == null ? Container() :  this.item(i, position);
+              return widget.item == null ? Container() :  widget.item(i, position);
             },
-            childCount: this.length(i) ?? 0,
+            childCount: widget.length(i) ?? 0,
           ),
         ));
       }else{
-        if (this.length != null) {
+        if (widget.length != null) {
           slivers.add(SliverList(
-            delegate: SliverChildBuilderDelegate(
+            delegate: widget.delegate != null ? widget.delegate(i) : SliverChildBuilderDelegate(
                   (BuildContext context, int position) {
-                return this.item == null ? Container() : this.item(i, position);
+                return widget.item == null ? Container() : widget.item(i, position);
               },
-              childCount: this.length(i) ?? 0,
+              childCount: widget.length(i) ?? 0,
             ),
           ));
         }
       }
 
       // 添加 每组的尾部 groupFooter
-      if (this.groupFooter != null) {
+      if (widget.groupFooter != null) {
         slivers.add(SliverToBoxAdapter(
-          child: this.groupFooter(i),
+          child: widget.groupFooter(i),
         ));
       }
     }
 
     // 添加 列表尾部 footerView
-    if (this.footerView != null) {
+    if (widget.footerView != null) {
       slivers.add(SliverToBoxAdapter(
-        child: this.footerView,
+        child: widget.footerView,
       ));
     }
 
@@ -198,7 +204,7 @@ class CustomSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return this.buildView(shrinkOffset,overlapsContent);
+    return this.buildView(shrinkOffset, overlapsContent);
   }
 
   @override
